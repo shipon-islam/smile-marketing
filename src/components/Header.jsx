@@ -14,10 +14,10 @@ export default function Header() {
             <img
               src={Band_Logo}
               alt="Smile Marketing Logo"
-              className="h-auto w-auto max-w-full"
+              className="h-auto w-34 lg:w-auto max-w-full"
             />
           </div>
-          <div className="flex items-center justify-between gap-x-8">
+          <div className="flex items-center justify-between gap-x-5 lg:gap-x-8">
             <div className="hidden md:flex  py-2 px-3 border border-gray-300 rounded-lg w-full md:min-w-[350px] lg:min-w-[600px]">
               <input
                 className="border-none outline-none w-full h-full block"
@@ -55,9 +55,14 @@ export default function Header() {
                 />
               )}
             </button>
-            <div className="flex items-center gap-x-8 w-full">
+            <div className="flex items-center gap-x-5 lg:gap-x-8 w-full">
               <div className="relative ">
-                <Icon icon="icon-park-solid:shopping" width="35" height="35" />
+                <Icon
+                  icon="icon-park-solid:shopping"
+                  width="35"
+                  height="35"
+                  className="size-[30px]"
+                />
                 <span className="absolute -top-1.5 -right-1.5 bg-blue-500 px-2 py-0.5 rounded-full text-xs text-white ">
                   1
                 </span>
@@ -66,14 +71,14 @@ export default function Header() {
                 <img
                   src={Avatar}
                   alt="Smile Marketing Logo"
-                  className="size-[45px] rounded-full border-gray-400 border "
+                  className="size-[38px] lg:size-[45px] rounded-full border-gray-400 border "
                 />
               </div>
             </div>
           </div>
         </nav>
         {searchToggle && (
-          <div className="flex md:hidden mt-3  py-2 px-3 border border-gray-300 rounded-lg w-full md:min-w-[350px] lg:min-w-[600px]">
+          <div className="flex md:hidden mt-6  py-2 px-3 border border-gray-300 rounded-lg w-full md:min-w-[350px] lg:min-w-[600px]">
             <input
               className="border-none outline-none w-full h-full block"
               type="text"
