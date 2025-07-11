@@ -8,7 +8,7 @@
 }
 @layer utilities {
   .table-item {
-    @apply flex justify-between mb-4 gap-x-4 items-center;
+    @apply grid grid-cols-[10rem_1fr] mb-4 gap-x-8 sm:gap-x-20 md:gap-x-40 items-center;
   }
   .toggle-btn {
     @apply transition-colors duration-300  text-gray-500 border border-gray-500 px-4 py-1 rounded-full capitalize cursor-pointer font-medium;

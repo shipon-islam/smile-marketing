@@ -121,7 +121,7 @@ export default function Password() {
   );
 
   return (
-    <div className=" grid xl:grid-cols-[1fr_20rem] gap-4 ">
+    <div className=" grid xl:grid-cols-[1fr_20rem] gap-x-4 gap-y-10 ">
       <div className="bg-white p-4 md:p-8 rounded-lg  order-2 xl:order-1 ">
         <h1 className="text-3xl font-semibold mb-8">Passwords</h1>
         <div>
