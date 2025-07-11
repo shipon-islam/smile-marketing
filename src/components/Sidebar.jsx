@@ -7,8 +7,8 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`bg-deepBlue h-[90vh] md:h-[88vh] rounded-md px-4 pt-10 mt-[1px] md:mt-2 fixed md:sticky md:top-[6.5rem]  w-4/5 sm:w-3/5 md:w-64 2xl:w-72 left-0 transition-transform duration-300 ${
-        sidebarToggle ? "translate-x-0" : "-translate-x-[98%] md:translate-x-0"
+      className={`bg-deepBlue h-[90vh] md:h-[88vh] rounded-md px-4 pt-10 mt-[1px] md:mt-2 fixed lg:sticky lg:top-[6.5rem]  w-4/5 sm:w-3/5 lg:w-64 2xl:w-72 left-0 transition-transform duration-300 ${
+        sidebarToggle ? "translate-x-0" : "-translate-x-[98%] lg:translate-x-0"
       }`}
     >
       <div className="relative ">
@@ -46,7 +46,7 @@ export default function Sidebar() {
           onClick={() => {
             setSidebarToggle((prev) => !prev);
           }}
-          className={`cursor-pointer absolute top-1/2 -right-11  -translate-y-1/2 py-5 px-2 rounded-r-full bg-deepBlue md:hidden ${
+          className={`cursor-pointer absolute top-1/2 -right-11  -translate-y-1/2 py-5 px-2 rounded-r-full bg-deepBlue lg:hidden ${
             sidebarToggle ? "opacity-0" : "opacity-100"
           }`}
         >
@@ -56,7 +56,7 @@ export default function Sidebar() {
           onClick={() => {
             setSidebarToggle((prev) => !prev);
           }}
-          className="cursor-pointer absolute -top-4 -right-2.5  p-3 rounded-r-full md:hidden hover:text-red-500"
+          className="cursor-pointer absolute -top-4 -right-2.5  p-3 rounded-r-full lg:hidden hover:text-red-500"
         >
           <Icon icon="material-symbols:close" width="28" height="28" />
         </button>

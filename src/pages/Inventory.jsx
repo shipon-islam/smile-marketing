@@ -20,7 +20,7 @@ export default function Inventory() {
         />
       </div>
       <div className="mt-8">
-        <div className="lg:hidden bg-deepBlue/5 rounded-full p-1 ">
+        <div className="md:hidden bg-deepBlue/5 rounded-full p-1 ">
           <div className="flex  gap-x-4 bg-deepBlue/10 border border-gray-200 w-fit ml-auto p-1.5 rounded-full">
             <button
               onClick={() => setisPending(false)}
@@ -40,10 +40,10 @@ export default function Inventory() {
             </button>
           </div>
         </div>
-        <div className="grid lg:grid-cols-[1fr_18rem] xl:grid-cols-[1fr_20rem] gap-x-5 mt-4 ">
+        <div className="grid md:grid-cols-[1fr_18rem] lg:grid-cols-[1fr_18rem] xl:grid-cols-[1fr_20rem] gap-x-5 mt-4 ">
           <div
             className={`bg-white px-3 sm:px-5 py-6 rounded-md shadow ${
-              isPending ? "hidden  lg:block" : ""
+              isPending ? "hidden  md:block" : ""
             }`}
           >
             <h1 className="font-semibold text-2xl capitalize mb-5">
@@ -53,7 +53,7 @@ export default function Inventory() {
           </div>
           <div
             className={`bg-white px-3 sm:px-5 py-6 rounded-md w-full shadow ${
-              isPending ? "" : "hidden lg:block"
+              isPending ? "" : "hidden md:block"
             }`}
           >
             <h4 className="font-semibold capitalize text-xl mb-4">
