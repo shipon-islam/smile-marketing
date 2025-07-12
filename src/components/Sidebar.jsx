@@ -7,7 +7,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`bg-deepBlue h-[90vh] md:h-[88vh] rounded-md px-4 pt-10 mt-[1px] md:mt-2 fixed lg:sticky lg:top-[6.5rem]  w-4/5 sm:w-3/5 lg:w-64 2xl:w-72 left-0 transition-transform duration-300 ${
+      className={`bg-deepBlue h-[90vh] md:h-[88vh] rounded-md px-4 pt-10 mt-[1px] md:mt-2 fixed lg:sticky lg:top-[6.5rem]  w-4/5 sm:w-3/5 lg:w-64 2xl:w-72 left-0 transition-transform duration-300 z-99 ${
         sidebarToggle ? "translate-x-0" : "-translate-x-[98%] lg:translate-x-0"
       }`}
     >

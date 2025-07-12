@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import InputBox from "../components/InputBox";
 import ProviderTable from "../components/ProviderTable";
 
@@ -25,9 +26,25 @@ export default function Providers() {
           </form>
         </div>
         <div className="mt-20">
-          <h4 className="font-medium text-2xl capitalize mb-4">
-            Provider list
-          </h4>
+          <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-4 w-full max-w-full md:max-w-[85%] 2xl:max-w-[89%] gap-y-4">
+            <h4 className="font-medium text-2xl capitalize ">Provider list</h4>
+
+            <div className="flex py-2 px-3 border border-gray-300 rounded-lg ">
+              <input
+                className="border-none outline-none w-full h-full block"
+                type="text"
+                placeholder="Search..."
+              />
+              <button>
+                <Icon
+                  icon="iconamoon:search-bold"
+                  width="24"
+                  height="24"
+                  className="text-gray-300"
+                />
+              </button>
+            </div>
+          </div>
           <ProviderTable />
         </div>
       </div>

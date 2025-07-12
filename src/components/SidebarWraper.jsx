@@ -9,7 +9,7 @@ export default function SidebarWraper({ children }) {
           <div className="lg:w-64 2xl:w-72 text-white">
             <Sidebar />
           </div>
-          <div className="lg:flex-1 p-2 sm:p-4">{children}</div>
+          <div className="lg:flex-1 sm:p-4 mt-4 lg:mt-0">{children}</div>
         </div>
       </div>
     </Layout>
