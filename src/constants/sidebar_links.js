@@ -45,7 +45,7 @@ export const sidebar_links = [
   },
   {
     id: 8,
-    url: "/internal_users",
+    url: "/internal-users",
     name: "Internal Users",
     icon: "mdi:users-outline",
   },

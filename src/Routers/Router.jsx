@@ -21,7 +21,7 @@ export default function Router() {
       <Route path="/client-portal" element={<ClientPortal />} />
       <Route path="/tickets" element={<Tickets />} />
       <Route path="/providers" element={<Providers />} />
-      <Route path="/internal_users" element={<InternalUsers />} />
+      <Route path="/internal-users" element={<InternalUsers />} />
       <Route path="/login" element={<Login />} />
     </Routes>
   );

@@ -5,7 +5,7 @@ export default function Notification() {
   return (
     <div className={`bg-white px-3 sm:px-5 py-6 rounded-md w-full shadow`}>
       <h4 className="font-semibold capitalize text-xl mb-4">
-        pending checkouts
+        Recent Notifications
       </h4>
       <ScrollArea className="h-[70vh]">
         <RequestBox

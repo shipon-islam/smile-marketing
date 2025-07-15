@@ -1,4 +1,4 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+import ScrollArea from "@/components/ScrollArea";
 import { passwordsList } from "@/constants/password_list";
 import { useState } from "react";
 

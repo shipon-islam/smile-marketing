@@ -3,7 +3,7 @@ import { useState } from "react";
 import Band_Logo from "../assets/logo/band-logo.png";
 import HeaderAvatar from "./HeaderAvatar";
 import Layout from "./Layout";
-import NotificationBar from "./ui/NotificationBar";
+import NotificationBar from "./NotificationBar";
 export default function Header() {
   const [searchValue, setSearchValue] = useState("");
   const [searchToggle, setSearchToggle] = useState(false);

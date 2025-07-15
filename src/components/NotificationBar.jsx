@@ -4,7 +4,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Icon } from "@iconify/react";
-import Notification from "../Notification";
+import Notification from "./Notification";
 export default function NotificationBar() {
   return (
     <DropdownMenu>
@@ -21,7 +21,7 @@ export default function NotificationBar() {
           </span>
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="max-w-full w-96 " align="end">
+      <DropdownMenuContent className="w-screen sm:w-96 " align="end">
         <Notification />
       </DropdownMenuContent>
     </DropdownMenu>

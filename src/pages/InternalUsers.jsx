@@ -9,17 +9,17 @@ export default function InternalUsers() {
         <SummaryBox
           title="internal admin"
           items="5 person"
-          icon="material-symbols:tab-new-right-outline"
+          icon="eos-icons:admin"
         />
         <SummaryBox
           title="internal Team"
           items="10 person"
-          icon="mage:box-3d-check"
+          icon="fluent:people-team-28-regular"
         />
         <SummaryBox
           title="internal guest"
           items="2 person"
-          icon="mage:box-3d-check"
+          icon="stash:user-group"
         />
       </div>
       <Card>
