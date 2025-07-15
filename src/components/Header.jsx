@@ -1,8 +1,9 @@
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import Band_Logo from "../assets/logo/band-logo.png";
-import Avatar from "../assets/user/user-andrew.png";
+import HeaderAvatar from "./HeaderAvatar";
 import Layout from "./Layout";
+import NotificationBar from "./ui/NotificationBar";
 export default function Header() {
   const [searchValue, setSearchValue] = useState("");
   const [searchToggle, setSearchToggle] = useState(false);
@@ -56,24 +57,8 @@ export default function Header() {
               )}
             </button>
             <div className="flex items-center gap-x-5 lg:gap-x-8 w-full">
-              <div className="relative ">
-                <Icon
-                  icon="icon-park-solid:shopping"
-                  width="35"
-                  height="35"
-                  className="size-[30px]"
-                />
-                <span className="absolute -top-1.5 -right-1.5 bg-blue-500 px-2 py-0.5 rounded-full text-xs text-white ">
-                  1
-                </span>
-              </div>
-              <div>
-                <img
-                  src={Avatar}
-                  alt="Smile Marketing Logo"
-                  className="size-[38px] lg:size-[45px] rounded-full border-gray-400 border "
-                />
-              </div>
+              <NotificationBar />
+              <HeaderAvatar />
             </div>
           </div>
         </nav>

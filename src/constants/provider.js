@@ -1,0 +1,38 @@
+export const providers = [
+  {
+    id: 1,
+    name: "Joshua R.",
+    email: "contact@acme.com",
+    phone: "(555) 123-4567",
+    company: "acme corp",
+    specialty: "construction",
+    tags: ["web", "ai", "tech", "dev"],
+  },
+  {
+    id: 2,
+    name: "Linda m.",
+    email: "info@techsolution.exa",
+    phone: "(555) 123-4567",
+    company: "tech Solutions, LLC",
+    specialty: "iT services",
+    tags: ["web", "ai", "tech", "dev"],
+  },
+  {
+    id: 3,
+    name: "William G.",
+    email: "info@techsolution.exa",
+    phone: "(555) 123-4567",
+    company: "tech Solutions, LLC",
+    specialty: "construction",
+    tags: ["web", "ai", "tech", "dev"],
+  },
+  {
+    id: 4,
+    name: "Emily S.",
+    email: "info@techsolution.exa",
+    phone: "(555) 123-4567",
+    company: "tech Solutions, LLC",
+    specialty: "iT services",
+    tags: ["web", "ai", "tech", "dev"],
+  },
+];

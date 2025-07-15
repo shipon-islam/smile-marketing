@@ -1,119 +1,9 @@
-import ScrollArea from "../components/ScrollArea";
-const passwordsList = [
-  {
-    id: 1,
-    company: "wifi",
-    username: "user@wifi.com",
-    password: "user123456",
-    logo: "/images/company/wifi.png",
-    access: ["AD"],
-  },
-  {
-    id: 2,
-    company: "LG",
-    username: "lgit@company.com",
-    password: "lg123456",
-    logo: "/images/company/lg.png",
-    access: ["AD"],
-  },
-  {
-    id: 3,
-    company: "Google",
-    username: "google.com",
-    password: "google123",
-    logo: "/images/company/google.png",
-    access: ["LM", "JG", "SD", "AC"],
-  },
-  {
-    id: 11,
-    company: "Slack",
-    username: "luuki@.mail",
-    password: "user123456",
-    logo: "/images/company/slack.png",
-    access: ["LM", "JG"],
-  },
-  {
-    id: 5,
-    company: "AWS",
-    username: "aws.com",
-    password: "user123456",
-    logo: "/images/company/aws.png",
-    access: ["LM", "JG", "SD"],
-  },
-  {
-    id: 6,
-    company: "Zoom",
-    username: "zoom.com",
-    password: "user123456",
-    logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
-  },
-  {
-    id: 7,
-    company: "Zoom",
-    username: "zoom.com",
-    password: "user123456",
-    logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
-  },
-  {
-    id: 8,
-    company: "Zoom",
-    username: "zoom.com",
-    password: "user123456",
-    logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
-  },
-  {
-    id: 9,
-    company: "Zoom",
-    username: "zoom.com",
-    password: "user123456",
-    logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
-  },
-  {
-    id: 10,
-    company: "Zoom",
-    username: "zoom.com",
-    password: "user123456",
-    logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
-  },
-  {
-    id: 11,
-    company: "Zoom",
-    username: "zoom.com",
-    password: "user123456",
-    logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
-  },
-  {
-    id: 12,
-    company: "Zoom",
-    username: "zoom.com",
-    password: "user123456",
-    logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
-  },
-  {
-    id: 13,
-    company: "Zoom",
-    username: "zoom.com",
-    password: "user123456",
-    logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
-  },
-  {
-    id: 14,
-    company: "Zoom",
-    username: "zoom.com",
-    password: "user123456",
-    logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
-  },
-];
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { passwordsList } from "@/constants/password_list";
+import { useState } from "react";
+
 export default function Password() {
+  const [isPending, setisPending] = useState(false);
   const mypass = [1, 2];
   const myPasswords = passwordsList.filter((pass) => mypass.includes(pass.id));
   const otherPasswords = passwordsList.filter(
@@ -122,15 +12,46 @@ export default function Password() {
 
   return (
     <div className=" grid xl:grid-cols-[1fr_20rem] gap-x-4 gap-y-10 ">
-      <div className="bg-white p-4 md:p-8 rounded-lg  order-2 xl:order-1 ">
-        <h1 className="text-3xl font-semibold mb-8">Passwords</h1>
+      <div className="bg-white px-1 py-4 rounded-lg md:hidden">
+        <h1 className="text-3xl font-semibold mb-2 pl-2">Passwords</h1>
+
+        <div className=" bg-deepBlue/5 rounded-full p-1 ">
+          <div className="flex  gap-x-4 bg-deepBlue/10 border border-gray-200 w-fit ml-auto p-1.5 rounded-full">
+            <button
+              onClick={() => setisPending(false)}
+              className={`toggle-btn ${
+                isPending ? "" : "bg-deepBlue !text-gray-300"
+              }`}
+            >
+              Password list
+            </button>
+            <button
+              onClick={() => setisPending(true)}
+              className={`toggle-btn ${
+                isPending ? "bg-deepBlue !text-gray-300" : ""
+              }`}
+            >
+              Create Password
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        className={`bg-white p-4 md:p-8 rounded-lg  order-2 xl:order-1 ${
+          isPending ? "hidden  md:block" : ""
+        }`}
+      >
+        <h1 className="text-3xl font-semibold mb-8 hidden md:block">
+          Passwords
+        </h1>
+
         <div>
           <h4 className="font-medium text-2xl capitalize mb-4">my passwords</h4>
           <ScrollArea className="max-h-[50vh] overflow-x-auto max-w-[80vw] sm:max-w-[85vw] xl:max-w-full">
             <ul className="w-full">
               {myPasswords.map((password) => (
                 <li
-                  className="flex justify-between gap-x-4 items-center bg-[#F7F7F7] mb-4 py-2 px-4 rounded-md w-[400px] md:w-full"
+                  className="flex justify-between gap-x-4 items-center bg-[#F7F7F7] mb-4 py-2 px-4 rounded-md w-[400px] sm:w-[400px] md:w-full"
                   key={password.id}
                 >
                   <div className="flex items-center gap-5">
@@ -184,7 +105,11 @@ export default function Password() {
           </ScrollArea>
         </div>
       </div>
-      <div className="bg-white p-4 md:p-8 rounded-lg  order-1 xl:order-2 ">
+      <div
+        className={`bg-white p-4 md:p-8 rounded-lg  order-1 xl:order-2  ${
+          isPending ? "" : "hidden  md:block"
+        }`}
+      >
         <h1 className="text-3xl font-semibold mb-8">Add Account</h1>
         <form action="" className="space-y-10">
           <div>

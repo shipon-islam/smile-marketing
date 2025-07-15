@@ -1,8 +1,13 @@
+import SelectBox from "@/components/SelectBox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { inventoryList } from "@/constants/inventory";
 import { Icon } from "@iconify/react";
-import DialogBox from "../components/DialogBox";
 import MultiSelect from "../components/MultiSelect";
-import SelectBox from "../components/SelectBox";
-import { product_list } from "../constants/product";
+
 export default function ClientPortal() {
   return (
     <div className="bg-white rounded-lg p-4 sm:p-6 md:p-8">
@@ -16,7 +21,50 @@ export default function ClientPortal() {
             placeholder="location"
             items={["dhaka", "mymensingh", "jamalpur"]}
           />
-          <DialogBox
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <button className="flex gap-x-0.5 rounded-md border border-gray-300 px-2.5 py-1.5 cursor-pointer">
+                <Icon icon="lets-icons:filter" width="24" height="24" />
+                <span>Filter</span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-72 p-4">
+              <div className="border-b border-gray-300 pb-2">
+                <h4 className="text-lg sm:text-base">Advance Filter</h4>
+                <p className="text-xs">
+                  Refine your search with specific filters
+                </p>
+              </div>
+              <div className="mt-3">
+                <SelectBox
+                  onSelect={(value) => console.log(value)}
+                  label="Category"
+                  items={["Electronic", "Plastic"]}
+                />
+                <SelectBox
+                  onSelect={(value) => console.log(value)}
+                  label="Price"
+                  items={["above $100", "below $5000"]}
+                />
+                <SelectBox
+                  onSelect={(value) => console.log(value)}
+                  label="Location"
+                  items={["New York", "Virginia"]}
+                />
+                <div className="flex gap-x-5 justify-end mt-6 sm:text-sm">
+                  <button className="flex items-center gap-x-0.5 border border-gray-300 py-1 px-3 rounded-md  cursor-pointer hover:bg-light">
+                    <Icon icon="ix:reset" width="20" height="20" />
+                    <span>Reset</span>
+                  </button>
+                  <button className="flex gap-x-1 items-center border border-gray-300 py-1 px-3 rounded-md   cursor-pointer hover:bg-light">
+                    <Icon icon="streamline:send-email" width="15" height="15" />
+                    <span>Submit</span>
+                  </button>
+                </div>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          {/* <DialogBox
             className="w-[300px]"
             intialButton={
               <button className="flex gap-x-0.5 rounded-md border border-gray-300 px-2.5 py-1.5 cursor-pointer">
@@ -58,22 +106,22 @@ export default function ClientPortal() {
                 </button>
               </div>
             </div>
-          </DialogBox>
+          </DialogBox> */}
         </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3  gap-4 2xl:grid-cols-4 ">
-        {product_list.map((product) => (
+        {inventoryList.map((product) => (
           <div
             key={product.id}
             className="p-3 border border-gray-200 rounded-md"
           >
             <img src={product.image} alt="a" />
             <div className="text-sm space-y-1">
-              <h5>$1,200</h5>
-              <h4 className="font-medium">MacBook Air</h4>
-              <p>New york</p>
-              <button className="bg-deepBlue w-full text-gray-300 py-1.5 rounded-md">
-                Purchase
+              <h5>${product.price}</h5>
+              <h4 className="font-medium">{product.name}</h4>
+              <p>Stock Available: {product.stock}</p>
+              <button className="bg-deepBlue w-full text-gray-300 py-1.5 rounded-md mt-4">
+                {product.sellingType == "rent" ? "Rent" : "Purchase"}
               </button>
             </div>
           </div>
