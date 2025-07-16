@@ -79,7 +79,7 @@ export default function CheckoutTable() {
                 </div>
               </TableCell>
               <TableCell>
-                <div className="flex gap-x-3">
+                <div className="flex items-center gap-x-3">
                   <DeleteModal />
                   <button className="text-green-400 cursor-pointer">
                     <Icon icon="akar-icons:edit" width="24" height="24" />

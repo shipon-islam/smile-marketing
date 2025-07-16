@@ -15,7 +15,7 @@ export function DeleteModal() {
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <button className="text-red-400 cursor-pointer">
+          <button className="text-red-400 cursor-pointer mt-2">
             <Icon icon="material-symbols:delete" width="24" height="24" />
           </button>
         </DialogTrigger>
