@@ -8,8 +8,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { internal_users } from "@/constants/internal_users";
-import { Icon } from "@iconify/react";
 import SelectInput from "../SelectInput";
+import { DeleteModal } from "./DeleteModal";
 import TableTopper from "./TableTopper";
 export default function InternalUsersTable() {
   return (
@@ -49,13 +49,7 @@ export default function InternalUsersTable() {
               </TableCell>
               <TableCell>
                 <div className="flex gap-x-3">
-                  <button className="text-red-400 cursor-pointer">
-                    <Icon
-                      icon="material-symbols:delete"
-                      width="24"
-                      height="24"
-                    />
-                  </button>
+                  <DeleteModal />
                 </div>
               </TableCell>
             </TableRow>

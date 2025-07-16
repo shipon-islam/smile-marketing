@@ -12,6 +12,7 @@ import {
 import { inventoryList } from "@/constants/inventory";
 import { getInventoryStateColor } from "@/utils/getStateColor";
 import { Icon } from "@iconify/react";
+import { DeleteModal } from "./DeleteModal";
 import TableTopper from "./TableTopper";
 export default function CheckoutTable() {
   return (
@@ -79,13 +80,7 @@ export default function CheckoutTable() {
               </TableCell>
               <TableCell>
                 <div className="flex gap-x-3">
-                  <button className="text-red-400 cursor-pointer">
-                    <Icon
-                      icon="material-symbols:delete"
-                      width="24"
-                      height="24"
-                    />
-                  </button>
+                  <DeleteModal />
                   <button className="text-green-400 cursor-pointer">
                     <Icon icon="akar-icons:edit" width="24" height="24" />
                   </button>

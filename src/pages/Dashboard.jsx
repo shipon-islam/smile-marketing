@@ -1,17 +1,17 @@
 import Card from "@/components/Card";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
-import { ChartBarDefault } from "./BarChart";
-import { ChartPieDonutText } from "./ChartPieDonutText";
+import { ChartBarDefault } from "../components/BarChart";
+import { ChartPieDonutText } from "../components/ChartPieDonutText";
 
 export default function Dashboard() {
   return (
-    <div>
-      <h1 className="text-xl mt-8 sm:mt-4 sm:text-2xl font-medium mb-4 pl-2 flex gap-2 items-center">
+    <div className="mb-16 lg:mb-4">
+      <h1 className="text-xl  mt-8 sm:mt-4 sm:text-2xl font-medium mb-4 pl-2 flex gap-2 items-center">
         <span>Shortcut Links</span>
         <Icon icon="solar:arrow-right-linear" width="24" height="24" />
       </h1>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 mb-8">
         <Card>
           <Link
             to="/inventory"
