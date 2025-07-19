@@ -1,4 +1,4 @@
-import Card from "@/components/Card";
+import { Card } from "@/components/ui/card";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { ChartBarDefault } from "../components/BarChart";
@@ -11,8 +11,8 @@ export default function Dashboard() {
         <span>Shortcut Links</span>
         <Icon icon="solar:arrow-right-linear" width="24" height="24" />
       </h1>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 mb-8">
-        <Card>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 mb-8">
+        <Card className="px-3 sm:px-5 py-6">
           <Link
             to="/inventory"
             className="flex flex-col items-center justify-center dashboard group"
@@ -30,7 +30,7 @@ export default function Dashboard() {
             </div>
           </Link>
         </Card>
-        <Card>
+        <Card className="px-3 sm:px-5 py-6">
           <Link
             to="/password"
             className="flex flex-col items-center justify-center group"
@@ -48,7 +48,7 @@ export default function Dashboard() {
             </div>
           </Link>
         </Card>
-        <Card>
+        <Card className="px-3 sm:px-5 py-6">
           <Link
             to="/internal-users"
             className="flex flex-col items-center justify-center group"
@@ -66,7 +66,7 @@ export default function Dashboard() {
             </div>
           </Link>
         </Card>
-        <Card>
+        <Card className="px-3 sm:px-5 py-6">
           <Link
             to="client-portal"
             className="flex flex-col items-center justify-center group"
@@ -90,7 +90,7 @@ export default function Dashboard() {
           <span>Visitor Analytics</span>
           <Icon icon="solar:arrow-right-linear" width="24" height="24" />
         </h1>
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-4">
           <ChartBarDefault /> <ChartPieDonutText />
         </div>
       </div>

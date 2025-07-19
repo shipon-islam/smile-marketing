@@ -1,6 +1,6 @@
-import Card from "@/components/Card";
 import SummaryBox from "@/components/SummaryBox";
 import ClientRequestTable from "@/components/tables/ClientRequestTable";
+import { Card } from "@/components/ui/card";
 export default function ClientRequest() {
   return (
     <div className="w-full lg:w-[68vw] xl:w-[72vw] 2xl:lg:w-full">
@@ -21,7 +21,7 @@ export default function ClientRequest() {
           icon="ic:outline-cloud-done"
         />
       </div>
-      <Card>
+      <Card className="px-3 sm:px-5 py-6">
         <ClientRequestTable />
       </Card>
     </div>

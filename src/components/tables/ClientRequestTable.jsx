@@ -70,10 +70,14 @@ export default function ClientRequestTable() {
               <TableCell>{GetTime(request.createdAt)}</TableCell>
               <TableCell>
                 <div className="flex items-center gap-x-3">
-                  <DeleteModal />
+                  <button className="text-yellow-400 cursor-pointer">
+                    <Icon icon="mdi:eye" width="24" height="24" />
+                  </button>
+
                   <button className="text-green-400 cursor-pointer">
                     <Icon icon="akar-icons:edit" width="24" height="24" />
                   </button>
+                  <DeleteModal />
                 </div>
               </TableCell>
             </TableRow>

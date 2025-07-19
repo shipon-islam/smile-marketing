@@ -32,12 +32,12 @@ export default function MultiSelect({
     <div className="relative select-container">
       <button
         onClick={() => setIsList((prev) => !prev)}
-        className="flex items-center gap-1 border border-gray-300 rounded-lg px-4 py-1.5 cursor-pointer"
+        className="flex items-center gap-1 border border-gray-300 rounded-lg px-4 py-1.5 cursor-pointer text-gray-500"
       >
         <Icon icon="ion:filter" width="20" height="20" />
         <span>
           Sort by:{" "}
-          <strong className="font-medium">
+          <strong className="font-normal capitalize text-gray-600">
             {selectedValue ? selectedValue : placeholder}
           </strong>
         </span>

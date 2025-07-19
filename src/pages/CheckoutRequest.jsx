@@ -1,6 +1,6 @@
-import Card from "@/components/Card";
 import SummaryBox from "@/components/SummaryBox";
 import CheckoutTable from "@/components/tables/CheckoutTable";
+import { Card } from "@/components/ui/card";
 export default function CheckoutRequest() {
   return (
     <div className="w-full lg:w-[68vw] xl:w-[72vw] 2xl:lg:w-full">
@@ -16,7 +16,7 @@ export default function CheckoutRequest() {
           icon="mage:box-3d-check"
         />
       </div>
-      <Card>
+      <Card className="px-3 sm:px-5 py-6">
         <CheckoutTable />
       </Card>
     </div>

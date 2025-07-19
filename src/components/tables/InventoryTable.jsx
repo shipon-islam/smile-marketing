@@ -29,13 +29,12 @@ export default function CheckoutTable() {
         <TableHeader className="bg-gray-200/55 !rounded-lg">
           <TableRow>
             <TableHead className="min-w-[200px]">Product</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Brand</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>Location</TableHead>
             <TableHead>Stock</TableHead>
             <TableHead className="text-center">Status</TableHead>
             <TableHead>CheckedOutBy</TableHead>
+            <TableHead>Contact</TableHead>
             <TableHead>Visible Clients</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
@@ -51,10 +50,19 @@ export default function CheckoutTable() {
                     className="max-h-[93px] max-w-[109px] w-full h-full object-cover"
                   />
                   {inventory.name}
+                  <div className="text-sm space-y-1 mt-1">
+                    <p className="flex gap-1">
+                      <span className="font-normal">Band:</span>
+                      <span className="font-light">{inventory?.brand}</span>
+                    </p>
+                    <p className="flex gap-1">
+                      <span className="font-normal">Category:</span>
+                      <span className="font-light">{inventory.category}</span>
+                    </p>
+                  </div>
                 </div>
               </TableCell>
-              <TableCell>{inventory.category}</TableCell>
-              <TableCell>{inventory.brand}</TableCell>
+
               <TableCell>${inventory.price}</TableCell>
 
               <TableCell>{inventory.location}</TableCell>
@@ -74,16 +82,27 @@ export default function CheckoutTable() {
                 )}
               </TableCell>
               <TableCell>
+                <a
+                  className="text-blue-500 underline"
+                  href={inventory.contactLink}
+                >
+                  google docs
+                </a>
+              </TableCell>
+              <TableCell>
                 <div className="mx-auto w-fit ">
                   <Switch className="cursor-pointer" />
                 </div>
               </TableCell>
               <TableCell>
                 <div className="flex items-center gap-x-3">
-                  <DeleteModal />
+                  <button className="text-yellow-400 cursor-pointer">
+                    <Icon icon="mdi:eye" width="24" height="24" />
+                  </button>
                   <button className="text-green-400 cursor-pointer">
                     <Icon icon="akar-icons:edit" width="24" height="24" />
                   </button>
+                  <DeleteModal />
                 </div>
               </TableCell>
             </TableRow>

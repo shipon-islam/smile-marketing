@@ -1,3 +1,6 @@
+import CheckoutRequestForm from "@/pages/CheckoutRequestForm";
+import ClientRequestForm from "@/pages/ClientRequestForm";
+import CreateInventory from "@/pages/CreateInventory";
 import InternalUsers from "@/pages/InternalUsers";
 import { Route, Routes } from "react-router-dom";
 import CheckoutRequest from "../pages/CheckoutRequest";
@@ -17,11 +20,14 @@ export default function Router() {
       <Route path="/client-requests" element={<ClientRequest />} />
       <Route path="/checkout-requests" element={<CheckoutRequest />} />
       <Route path="/inventory" element={<Inventory />} />
+      <Route path="/create-inventory" element={<CreateInventory />} />
       <Route path="/password" element={<Password />} />
       <Route path="/client-portal" element={<ClientPortal />} />
       <Route path="/tickets" element={<Tickets />} />
       <Route path="/providers" element={<Providers />} />
       <Route path="/internal-users" element={<InternalUsers />} />
+      <Route path="/client-request-form" element={<ClientRequestForm />} />
+      <Route path="/checkout-request-form" element={<CheckoutRequestForm />} />
       <Route path="/login" element={<Login />} />
     </Routes>
   );

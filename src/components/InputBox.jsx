@@ -1,15 +1,51 @@
-export default function InputBox({ label, name, ...rest }) {
+export default function InputBox({
+  className,
+  label,
+  placeholder,
+  items,
+  type = "text",
+  error_message,
+  ...rest
+}) {
+  if (type == "select") {
+    return (
+      <div>
+        <label className="font-medium mb-2 inline-block ml-1" htmlFor={name}>
+          {label}
+        </label>
+        <select
+          className={`outline-none py-3 px-2 w-full bg-[#F1F2F4] rounded-lg ${className}`}
+          {...rest}
+        >
+          <option value="">{placeholder}</option>
+          {items?.map((item, index) => (
+            <option
+              className="capitalize"
+              key={index}
+              value={item.toLowerCase()}
+            >
+              {item}
+            </option>
+          ))}
+        </select>
+        <p className="text-red-500 text-sm ml-1">{error_message?.message}</p>
+      </div>
+    );
+  }
   return (
     <div>
       <label className="font-medium mb-2 inline-block ml-1" htmlFor={name}>
         {label}
       </label>
       <input
-        className="outline-none py-3 px-2 w-full bg-[#F1F2F4] rounded-lg"
-        id={name}
-        name={name}
+        className={`outline-none py-3 px-2 w-full bg-[#F1F2F4] rounded-lg ${className}`}
+        type={type}
+        placeholder={placeholder}
         {...rest}
       />
+      {error_message?.message && (
+        <p className="text-red-500 text-sm ml-1">{error_message.message}</p>
+      )}
     </div>
   );
 }

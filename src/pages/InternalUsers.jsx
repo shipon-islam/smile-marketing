@@ -1,6 +1,6 @@
-import Card from "@/components/Card";
 import SummaryBox from "@/components/SummaryBox";
 import InternalUsersTable from "@/components/tables/InternalUsersTable";
+import { Card } from "@/components/ui/card";
 
 export default function InternalUsers() {
   return (
@@ -22,7 +22,7 @@ export default function InternalUsers() {
           icon="stash:user-group"
         />
       </div>
-      <Card>
+      <Card className="px-3 sm:px-5 py-6">
         <InternalUsersTable />
       </Card>
     </div>
