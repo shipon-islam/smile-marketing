@@ -173,7 +173,7 @@ export default function CheckoutTable() {
         heading="Checkout Request List"
         selectPlaceholder="Select status"
         selectlist={["Pending", "Approved", "Rejected"]}
-        onSearch={(e) => setFilters({ nestedSearch: e })}
+        onSearch={(e) => setFilters({ nestedSearch: e.toLowerCase() })}
         onSelect={(e) => setFilters({ status: e })}
       />
       <div className="min-h-[50vh]">

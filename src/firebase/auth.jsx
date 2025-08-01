@@ -42,12 +42,28 @@ export function AuthProvider({ children }) {
 
     return unsubscribe;
   }, []);
-
+  // logout function
+  function logout() {
+    signOut(auth);
+    return navigate("/");
+  }
   //signup with google
   const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
+    // const user = result?.user;
+    // if (user && !user.email.endsWith("@smilemkt.com")) {
+    //   signOut(auth);
+    //   toast.error("You can't login with @smilemkt.com email");
+    //   setTimeout(() => {
+    //     window?.location.reload();
+    //   }, 200);
+
+    //   return;
+    // }
+
     const { uid, displayName, email, photoURL } = auth.currentUser;
+
     const docRef = doc(firestore_Db, "users", uid);
     const userSnap = await getDoc(docRef);
     if (!userSnap?.exists()) {
@@ -68,11 +84,6 @@ export function AuthProvider({ children }) {
     return navigate("/");
   };
 
-  // logout function
-  function logout() {
-    signOut(auth);
-    return navigate("/");
-  }
   useEffect;
   const value = {
     currentUser,

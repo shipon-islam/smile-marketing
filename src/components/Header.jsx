@@ -34,7 +34,7 @@ export default function Header() {
                 value={searchValue}
                 onChange={(e) => {
                   setSearchValue(e.target.value);
-                  setFilters({ search: e.target.value });
+                  setFilters({ search: e.target.value.toLowerCase() });
                 }}
               />
               <button>
@@ -81,7 +81,7 @@ export default function Header() {
               value={searchValue}
               onChange={(e) => {
                 setSearchValue(e.target.value);
-                setFilters({ search: e.target.value });
+                setFilters({ search: e.target.value.toLowerCase() });
               }}
             />
             <button>

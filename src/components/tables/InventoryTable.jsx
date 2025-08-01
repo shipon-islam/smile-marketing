@@ -37,7 +37,7 @@ export default function InventoryTable() {
         heading="Internal inventory"
         selectPlaceholder="Select status"
         selectlist={["Checked In", "Checked Out"]}
-        onSearch={(e) => setFilters({ search: e })}
+        onSearch={(e) => setFilters({ search: e.toLowerCase() })}
         onSelect={(e) => setFilters({ status: e })}
       />
       <div className="min-h-[60vh]">

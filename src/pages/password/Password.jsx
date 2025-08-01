@@ -45,9 +45,9 @@ export default function Password() {
           </div>
         )}
 
-        <div className="mt-10">
-          <div className="flex justify-between items-center my-6">
-            <h4 className="font-medium text-2xl capitalize mb-4">
+        <div className="sm:mt-10">
+          <div className="flex flex-col-reverse sm:flex-row sm:justify-between sm:items-center my-6">
+            <h4 className="font-medium text-2xl capitalize sm:mb-4 mt-8 sm:mt-0">
               all passwords
             </h4>
             {currentUser?.role !== "team" && (

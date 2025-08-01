@@ -31,7 +31,7 @@ export default function InternalUsersTable() {
         heading="Internal Users"
         selectPlaceholder="Select role"
         selectlist={["Admin", "Team", "Guest"]}
-        onSearch={(e) => setFilters({ search: e })}
+        onSearch={(e) => setFilters({ search: e.toLowerCase() })}
         onSelect={(e) => setFilters({ role: e })}
       />
       <div className="min-h-[60vh]">

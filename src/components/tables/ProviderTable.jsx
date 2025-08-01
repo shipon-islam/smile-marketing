@@ -25,7 +25,7 @@ export default function ProviderTable() {
         heading="Provider List"
         selectPlaceholder="Select role"
         selectlist={["Admin", "Team", "Guest"]}
-        onSearch={(e) => setFilters({ search: e })}
+        onSearch={(e) => setFilters({ search: e.toLowerCase() })}
         onSelect={(e) => console.log(e)}
       />
       <div className="min-h-[50vh]">

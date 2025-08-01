@@ -37,7 +37,7 @@ export default function ClientRequestTable() {
         heading="Client Request List"
         selectPlaceholder="Select status"
         selectlist={["New", "In_progress", "Completed"]}
-        onSearch={(e) => setFilters({ nestedSearch: e })}
+        onSearch={(e) => setFilters({ nestedSearch: e.toLowerCase() })}
         onSelect={(e) => setFilters({ status: e })}
       />
       <div className="min-h-[60vh]">
