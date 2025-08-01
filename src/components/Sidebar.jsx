@@ -1,9 +1,14 @@
-import { sidebar_links } from "@/constants/sidebar_links";
+import {
+  admin_sidebar_links,
+  team_sidebar_links,
+} from "@/constants/sidebar_links";
+import { UseAuth } from "@/firebase/auth";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 export default function Sidebar() {
   const { pathname } = useLocation();
+  const { currentUser } = UseAuth();
   const [sidebarToggle, setSidebarToggle] = useState(false);
 
   return (
@@ -16,21 +21,22 @@ export default function Sidebar() {
         <h5 className="pl-2 font-medium text-xl text-gray-200 ">
           Admin Dashboard
         </h5>
-        <ul className="mt-8 md:mt-10 space-y-4 md:space-y-8">
-          {sidebar_links.map((link) => (
-            <li key={link.id} onClick={() => setSidebarToggle(false)}>
-              <Link
-                to={link.url}
-                className={`flex items-center gap-x-2 py-2 px-2 rounded-md text-gray-300 transition-colors duration-200  text-lg hover:bg-lightBlue ${
-                  link.url === pathname ? "bg-lightBlue " : ""
-                }`}
-              >
-                <Icon icon={link.icon} width="24" height="24" />
-                <span>{link.name}</span>
-              </Link>
-            </li>
-          ))}
-          {/* <li>
+        {currentUser?.role === "admin" ? (
+          <ul className="mt-8 md:mt-10 space-y-4 md:space-y-8">
+            {admin_sidebar_links.map((link) => (
+              <li key={link.id} onClick={() => setSidebarToggle(false)}>
+                <Link
+                  to={link.url}
+                  className={`flex items-center gap-x-2 py-2 px-2 rounded-md text-gray-300 transition-colors duration-200  text-lg hover:bg-lightBlue ${
+                    link.url === pathname ? "bg-lightBlue " : ""
+                  }`}
+                >
+                  <Icon icon={link.icon} width="24" height="24" />
+                  <span>{link.name}</span>
+                </Link>
+              </li>
+            ))}
+            {/* <li>
             <button
               className={`flex items-center gap-x-2 py-2 px-2 rounded-md text-gray-300 transition-colors duration-200  text-lg hover:bg-lightBlue w-full`}
             >
@@ -42,7 +48,25 @@ export default function Sidebar() {
               <span>Logout</span>
             </button>
           </li> */}
-        </ul>
+          </ul>
+        ) : (
+          <ul className="mt-8 md:mt-10 space-y-4 md:space-y-8">
+            {team_sidebar_links.map((link) => (
+              <li key={link.id} onClick={() => setSidebarToggle(false)}>
+                <Link
+                  to={link.url}
+                  className={`flex items-center gap-x-2 py-2 px-2 rounded-md text-gray-300 transition-colors duration-200  text-lg hover:bg-lightBlue ${
+                    link.url === pathname ? "bg-lightBlue " : ""
+                  }`}
+                >
+                  <Icon icon={link.icon} width="24" height="24" />
+                  <span>{link.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+
         <button
           onClick={() => {
             setSidebarToggle((prev) => !prev);

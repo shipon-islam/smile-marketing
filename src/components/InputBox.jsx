@@ -4,6 +4,7 @@ export default function InputBox({
   placeholder,
   items,
   type = "text",
+  initalValue,
   error_message,
   ...rest
 }) {
@@ -14,7 +15,7 @@ export default function InputBox({
           {label}
         </label>
         <select
-          className={`outline-none py-3 px-2 w-full bg-[#F1F2F4] rounded-lg ${className}`}
+          className={`outline-none py-3 px-2 w-full bg-[#F1F2F4] rounded-lg capitalize ${className}`}
           {...rest}
         >
           <option value="">{placeholder}</option>
@@ -22,9 +23,10 @@ export default function InputBox({
             <option
               className="capitalize"
               key={index}
-              value={item.toLowerCase()}
+              value={item.slug}
+              selected={item.slug == initalValue ? true : false}
             >
-              {item}
+              {item.name}
             </option>
           ))}
         </select>

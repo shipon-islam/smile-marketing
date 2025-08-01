@@ -9,8 +9,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import useDeleteDocument from "@/hooks/useDeleteDocument";
+import useImageDelete from "@/hooks/useImageDelete";
 import { Icon } from "@iconify/react";
-export function DeleteModal() {
+export function DeleteModal({ id, collectionName, imageUrl, refetch }) {
+  const { deleteDocument } = useDeleteDocument();
+  const { deleteImage } = useImageDelete();
+  const handleClick = async () => {
+    if (id) {
+      await deleteDocument(id, collectionName);
+      if (imageUrl) {
+        await deleteImage(imageUrl);
+      }
+    }
+    if (refetch) {
+      await refetch();
+    }
+  };
   return (
     <Dialog>
       <form>
@@ -33,6 +48,7 @@ export function DeleteModal() {
               <Button variant="outline">Cancel</Button>
             </DialogClose>
             <Button
+              onClick={handleClick}
               className="cursor-pointer"
               variant="destructive"
               type="submit"

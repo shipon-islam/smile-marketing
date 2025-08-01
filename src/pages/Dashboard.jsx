@@ -14,7 +14,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 mb-8">
         <Card className="px-3 sm:px-5 py-6">
           <Link
-            to="/inventory"
+            to="/dashboard/inventory"
             className="flex flex-col items-center justify-center dashboard group"
           >
             <Icon
@@ -32,7 +32,7 @@ export default function Dashboard() {
         </Card>
         <Card className="px-3 sm:px-5 py-6">
           <Link
-            to="/password"
+            to="/dashboard/password"
             className="flex flex-col items-center justify-center group"
           >
             <Icon
@@ -50,7 +50,7 @@ export default function Dashboard() {
         </Card>
         <Card className="px-3 sm:px-5 py-6">
           <Link
-            to="/internal-users"
+            to="/dashboard/internal-users"
             className="flex flex-col items-center justify-center group"
           >
             <Icon
@@ -68,7 +68,7 @@ export default function Dashboard() {
         </Card>
         <Card className="px-3 sm:px-5 py-6">
           <Link
-            to="client-portal"
+            to="/dashboard/team-portal"
             className="flex flex-col items-center justify-center group"
           >
             <Icon

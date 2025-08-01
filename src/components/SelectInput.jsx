@@ -9,10 +9,12 @@ export default function SelectInput({
   selectlist,
   selectPlaceholder,
   onSelect,
+  className,
+  ...rest
 }) {
   return (
-    <Select onValueChange={onSelect}>
-      <SelectTrigger className="w-[180px]">
+    <Select {...rest} onValueChange={onSelect}>
+      <SelectTrigger className={`w-[180px] ${className}`}>
         <SelectValue placeholder={selectPlaceholder} />
       </SelectTrigger>
       <SelectContent>

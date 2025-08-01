@@ -5,7 +5,7 @@ export const passwordsList = [
     username: "user@wifi.com",
     password: "user123456",
     logo: "/images/company/wifi.png",
-    access: ["AD"],
+    access: ["user", "guest"],
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ export const passwordsList = [
     username: "lgit@company.com",
     password: "lg123456",
     logo: "/images/company/lg.png",
-    access: ["AD"],
+    access: ["user", "guest"],
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ export const passwordsList = [
     username: "google.com",
     password: "google123",
     logo: "/images/company/google.png",
-    access: ["LM", "JG", "SD", "AC"],
+    access: ["user", "guest"],
   },
   {
     id: 15,
@@ -29,7 +29,7 @@ export const passwordsList = [
     username: "luuki@.mail",
     password: "user123456",
     logo: "/images/company/slack.png",
-    access: ["LM", "JG"],
+    access: ["user", "guest"],
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export const passwordsList = [
     username: "aws.com",
     password: "user123456",
     logo: "/images/company/aws.png",
-    access: ["LM", "JG", "SD"],
+    access: ["user", "guest"],
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ export const passwordsList = [
     username: "zoom.com",
     password: "user123456",
     logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
+    access: ["user", "guest"],
   },
   {
     id: 7,
@@ -53,7 +53,7 @@ export const passwordsList = [
     username: "zoom.com",
     password: "user123456",
     logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
+    access: ["user", "guest"],
   },
   {
     id: 8,
@@ -61,7 +61,7 @@ export const passwordsList = [
     username: "zoom.com",
     password: "user123456",
     logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
+    access: ["user", "guest"],
   },
   {
     id: 9,
@@ -69,7 +69,7 @@ export const passwordsList = [
     username: "zoom.com",
     password: "user123456",
     logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
+    access: ["user", "guest"],
   },
   {
     id: 10,
@@ -77,7 +77,7 @@ export const passwordsList = [
     username: "zoom.com",
     password: "user123456",
     logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
+    access: ["user", "guest"],
   },
   {
     id: 11,
@@ -85,7 +85,7 @@ export const passwordsList = [
     username: "zoom.com",
     password: "user123456",
     logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
+    access: ["user", "guest"],
   },
   {
     id: 12,
@@ -93,7 +93,7 @@ export const passwordsList = [
     username: "zoom.com",
     password: "user123456",
     logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
+    access: ["user", "guest"],
   },
   {
     id: 13,
@@ -101,7 +101,7 @@ export const passwordsList = [
     username: "zoom.com",
     password: "user123456",
     logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
+    access: ["user", "guest"],
   },
   {
     id: 14,
@@ -109,6 +109,6 @@ export const passwordsList = [
     username: "zoom.com",
     password: "user123456",
     logo: "/images/company/zoom.png",
-    access: ["LM", "JG"],
+    access: ["user", "guest"],
   },
 ];

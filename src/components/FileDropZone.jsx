@@ -1,21 +1,37 @@
+import useImageUpload from "@/hooks/useImageUplaod";
 import { useState } from "react";
 
-const FileDropZone = () => {
-  const [file, setFile] = useState(null);
+const FileDropZone = ({ setImageUrl }) => {
   const [dragActive, setDragActive] = useState(false);
-
+  const [file, setFile] = useState(null);
+  const { uploadImage, progress } = useImageUpload();
+  const handleUpload = async (img) => {
+    setFile(img);
+    if (img) {
+      try {
+        const url = await uploadImage(img, "inventory");
+        console.log("Uploaded Image URL:", url);
+        setImageUrl(url);
+      } catch (err) {
+        console.error("Upload failed:", err.message);
+      }
+    }
+  };
   const handleFileChange = (e) => {
     const selectedFile = e.target.files?.[0];
-    if (selectedFile) setFile(selectedFile);
+    if (selectedFile) {
+      handleUpload(selectedFile);
+    }
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-
     const droppedFile = e.dataTransfer.files?.[0];
-    if (droppedFile) setFile(droppedFile);
+    if (droppedFile) {
+      setImageUrl(droppedFile);
+    }
   };
 
   const handleDrag = (e) => {
@@ -29,7 +45,13 @@ const FileDropZone = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex flex-col items-center justify-center w-full">
+      <div className="w-full bg-blue-100 h-1 rounded-full mb-2">
+        <div
+          className="bg-blue-500 h-full rounded-full "
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
       <label
         htmlFor="dropzone-file"
         className={`flex flex-col items-center justify-center w-full h-full border-2 border-dashed rounded-lg cursor-pointer transition

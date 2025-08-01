@@ -1,6 +1,12 @@
 import React, { useRef, useState } from "react";
 
-const MultiSelectTag = ({ options, label, selected, setSelected }) => {
+const MultiSelectTag = ({
+  options,
+  label,
+  selected,
+  setSelected,
+  className,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const boxRef = useRef();
 
@@ -28,7 +34,7 @@ const MultiSelectTag = ({ options, label, selected, setSelected }) => {
   }, []);
 
   return (
-    <div className="w-full max-w-md mx-auto" ref={boxRef}>
+    <div className={`w-full max-w-md mx-auto ${className}`} ref={boxRef}>
       <label className="font-medium mb-2 inline-block ml-1" htmlFor={name}>
         {label}
       </label>

@@ -3,11 +3,14 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useNotificationCount from "@/hooks/usenotificationCount";
 import { Icon } from "@iconify/react";
 import Notification from "./Notification";
 export default function NotificationBar() {
+  const { notify } = useNotificationCount();
+
   return (
-    <DropdownMenu>
+    <DropdownMenu onClick={() => console.log("clicked")}>
       <DropdownMenuTrigger className="cursor-pointer" asChild>
         <div className="relative ">
           <Icon
@@ -17,12 +20,12 @@ export default function NotificationBar() {
             className="size-[30px]"
           />
           <span className="absolute -top-2 -right-1.5 bg-blue-500 px-2 py-0.5 rounded-full text-xs text-white ">
-            1
+            {notify.length}
           </span>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-screen sm:w-96 " align="end">
-        <Notification />
+        <Notification notify={notify} />
       </DropdownMenuContent>
     </DropdownMenu>
   );

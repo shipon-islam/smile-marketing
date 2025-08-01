@@ -13,7 +13,7 @@ export const checkoutRequests = [
     neededTo: "2025-07-20",
     note: "Need 4K lens",
     status: "pending",
-    createdAt: "2025-07-15T10:30:00Z",
+    createdAt: "July 25, 2025 at 6:24:37 PM UTC+6",
   },
   {
     inventoryRef: {
@@ -31,7 +31,7 @@ export const checkoutRequests = [
     status: "approved",
     adminDecisionBy: "admin@smilemkt.com",
     decisionDate: "2025-07-15T14:00:00Z",
-    createdAt: "2025-07-15T09:15:00Z",
+    createdAt: "July 25, 2025 at 6:24:37 PM UTC+6",
   },
   {
     inventoryRef: {
@@ -49,7 +49,7 @@ export const checkoutRequests = [
     status: "rejected",
     adminDecisionBy: "admin@smilemkt.com",
     decisionDate: "2025-07-15T11:40:00Z",
-    createdAt: "2025-07-14T18:00:00Z",
+    createdAt: "July 25, 2025 at 6:24:37 PM UTC+6",
   },
   {
     inventoryRef: {
@@ -65,7 +65,7 @@ export const checkoutRequests = [
     neededTo: "2025-07-22",
     note: "",
     status: "pending",
-    createdAt: "2025-07-15T08:20:00Z",
+    createdAt: "July 25, 2025 at 6:24:37 PM UTC+6",
   },
   {
     inventoryRef: {
@@ -83,7 +83,7 @@ export const checkoutRequests = [
     status: "approved",
     adminDecisionBy: "admin@smilemkt.com",
     decisionDate: "2025-07-15T10:45:00Z",
-    createdAt: "2025-07-14T21:50:00Z",
+    createdAt: "July 25, 2025 at 6:24:37 PM UTC+6",
   },
   {
     inventoryRef: {
@@ -99,7 +99,7 @@ export const checkoutRequests = [
     neededTo: "2025-07-22",
     note: "",
     status: "pending",
-    createdAt: "2025-07-15T12:10:00Z",
+    createdAt: "July 25, 2025 at 6:24:37 PM UTC+6",
   },
   {
     inventoryRef: {
@@ -115,7 +115,7 @@ export const checkoutRequests = [
     neededTo: "2025-07-17",
     note: "Soft light only",
     status: "rejected",
-    createdAt: "2025-07-14T15:00:00Z",
+    createdAt: "July 25, 2025 at 6:24:37 PM UTC+6",
   },
   {
     inventoryRef: {
@@ -133,7 +133,7 @@ export const checkoutRequests = [
     status: "approved",
     adminDecisionBy: "admin@smilemkt.com",
     decisionDate: "2025-07-15T13:15:00Z",
-    createdAt: "2025-07-15T09:40:00Z",
+    createdAt: "July 25, 2025 at 6:24:37 PM UTC+6",
   },
   {
     inventoryRef: {
@@ -149,7 +149,7 @@ export const checkoutRequests = [
     neededTo: "2025-07-19",
     note: "",
     status: "pending",
-    createdAt: "2025-07-15T11:30:00Z",
+    createdAt: "July 25, 2025 at 6:24:37 PM UTC+6",
   },
   {
     inventoryRef: {
@@ -165,6 +165,6 @@ export const checkoutRequests = [
     neededTo: "2025-07-24",
     note: "Drone with spare battery",
     status: "pending",
-    createdAt: "2025-07-15T13:45:00Z",
+    createdAt: "July 25, 2025 at 6:24:37 PM UTC+6",
   },
 ];

@@ -1,10 +1,13 @@
-export const GetTime = (isoDate) => {
-  const date = new Date(isoDate);
-  const formattedDate = date.toLocaleDateString("en-US", {
-    timeZone: "Asia/Dhaka",
+export const GetTime = (timestamp) => {
+  const date = timestamp.toDate();
+
+  const formatted = date.toLocaleString("en-US", {
+    day: "2-digit",
+    month: "short",
     year: "numeric",
-    month: "long",
-    day: "numeric",
+    // hour: "2-digit",
+    // minute: "2-digit",
+    hour12: true,
   });
-  return formattedDate;
+  return formatted;
 };

@@ -9,44 +9,57 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+import { UseAuth } from "@/firebase/auth";
 import { Link } from "react-router-dom";
 
-import userAvatar from "../assets/user/user-andrew.png";
-
 export default function HeaderAvatar() {
+  const { currentUser, logout } = UseAuth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="w-11 h-11 cursor-pointer border border-gray-400">
-          <AvatarImage src={userAvatar} />
+          <AvatarImage src={currentUser?.avatar} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-60 sm:w-56" align="end">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
 
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link className="w-full" to="/login">
-              LogIn
+        {(currentUser?.role === "admin" || currentUser?.role === "team") && (
+          <DropdownMenuGroup>
+            <Link to="/dashboard/profile">
+              <DropdownMenuItem className="cursor-pointer">
+                Profile
+                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+              </DropdownMenuItem>
             </Link>
+            <Link to="/dashboard">
+              <DropdownMenuItem className="cursor-pointer">
+                Dashdoard
+                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </Link>
+          </DropdownMenuGroup>
+        )}
 
-            <DropdownMenuShortcut>⌘L</DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        {currentUser ? (
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={async () => await logout()}
+          >
+            Log out
+            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        ) : (
+          <Link to="/login">
+            <DropdownMenuItem className="cursor-pointer">
+              Login
+              <DropdownMenuShortcut>⌘L</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
