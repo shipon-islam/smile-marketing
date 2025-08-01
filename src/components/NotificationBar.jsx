@@ -3,7 +3,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import useNotificationCount from "@/hooks/usenotificationCount";
+import useNotificationCount from "@/hooks/useNotificationCount";
 import { Icon } from "@iconify/react";
 import Notification from "./Notification";
 export default function NotificationBar() {

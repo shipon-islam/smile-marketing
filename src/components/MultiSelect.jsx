@@ -43,7 +43,7 @@ export default function MultiSelect({
         </span>
       </button>
       {isList && (
-        <ul className=" border border-gray-300 rounded-md p-2 absolute bg-white w-full top-11">
+        <ul className=" border border-gray-300 rounded-md p-2 absolute bg-white w-full top-11 z-10">
           {items?.map((item, index) => (
             <li
               onClick={() => {

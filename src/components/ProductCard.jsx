@@ -8,7 +8,7 @@ export default function ProductCard({ product }) {
       className="p-3 border border-gray-200 rounded-md relative min-h-[345px]"
     >
       <img
-        className="w-[160px] h-[150px] mx-auto"
+        className="sm:w-[160px] max-h-[150px] h-auto mx-auto object-center"
         src={product.imageUrl}
         alt={product.name || "product-image"}
       />
