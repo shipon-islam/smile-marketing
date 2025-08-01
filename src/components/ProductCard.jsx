@@ -7,11 +7,20 @@ export default function ProductCard({ product }) {
       key={product.id}
       className="p-3 border border-gray-200 rounded-md relative min-h-[345px]"
     >
-      <img
-        className="sm:w-[160px] max-h-[150px] h-auto mx-auto object-center"
-        src={product.imageUrl}
-        alt={product.name || "product-image"}
-      />
+      <Link
+        to={
+          pathname === "/"
+            ? `/inventory/${product.id}`
+            : `/dashboard/inventory/${product.id}`
+        }
+        state={{ inventory: product }}
+      >
+        <img
+          className="sm:w-[160px] max-h-[150px] h-auto mx-auto object-center"
+          src={product.imageUrl}
+          alt={product.name || "product-image"}
+        />
+      </Link>
       <div className="text-sm space-y-1 mt-2">
         <div className="flex justify-between">
           <h5>${product.price}</h5>

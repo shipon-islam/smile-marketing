@@ -3,6 +3,7 @@ import CheckoutRequestForm from "@/pages/checkout-request/CheckoutRequestForm";
 import ErrorPage from "@/pages/ErrorPage";
 import ClientRequestForm from "@/pages/home/ClientRequestForm";
 import Home from "@/pages/home/Home";
+import InventoryInfo from "@/pages/home/InventoryInfo";
 import CreateInventory from "@/pages/inventory/CreateInventory";
 import EditInventory from "@/pages/inventory/EditInventory";
 import InventoryDetails from "@/pages/inventory/InventoryDetails";
@@ -66,7 +67,7 @@ export default function Router() {
           <Route path="internal-users" element={<InternalUsers />} />
         </Route>
       </Route>
-
+      <Route path="/inventory/:id" element={<InventoryInfo />} />
       <Route path="client-request-form" element={<ClientRequestForm />} />
       <Route path="/login" element={<Login />} />
       <Route path="*" element={<ErrorPage />} />

@@ -17,12 +17,12 @@ export default function InternalUsers() {
         <SummaryBox
           title="internal Team"
           items={`${teamCount} person`}
-          icon="fluent:people-team-28-regular"
+          icon="stash:user-group"
         />
         <SummaryBox
           title="internal guest"
           items={`${guestCount} person`}
-          icon="stash:user-group"
+          icon="fluent:people-team-28-regular"
         />
       </div>
       <Card className="px-3 sm:px-5 py-6">

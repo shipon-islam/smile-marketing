@@ -1,12 +1,13 @@
+import Layout from "@/components/Layout";
 import { Card } from "@/components/ui/card";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-export default function InventoryDetails() {
+export default function InventoryInfo() {
   const location = useLocation();
   const inventory = location?.state?.inventory;
   return (
-    <div>
-      <Card className=" px-5 sm:px-10 sm:py-10">
+    <Layout className="mt-10">
+      <Card className=" px-5 sm:px-10 sm:py-10 ">
         <h1 className="font-semibold text-2xl mb-8">Inventory Details -</h1>
         <div className="flex flex-col md:flex-row gap-8">
           <div className="">
@@ -29,22 +30,18 @@ export default function InventoryDetails() {
             <li>
               <strong>Price</strong> : {inventory?.price}
             </li>
-            <li>
-              <strong>Status</strong> : {inventory?.status}
-            </li>
+
             <li>
               <strong>Location</strong> : {inventory?.location}
             </li>
             <li>
               <strong>Available stock</strong> : {inventory?.stock}
             </li>
-            <li>
-              <strong>Selling_Type</strong> : {inventory?.sellingType}
-            </li>
+
             <li>
               <strong>Contact_link</strong> :
               <a
-                className="text-blue-500 hover:underline"
+                className="text-blue-500 hover:underline text-wrap"
                 href={inventory?.contactLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -52,22 +49,16 @@ export default function InventoryDetails() {
                 {inventory?.contactLink}
               </a>
             </li>
-            <li>
-              <strong>Visible_Client_Page</strong> :{" "}
-              {inventory?.isVisibleToClients ? "Yes" : "No"}
-            </li>
-            <li>
-              <strong>Tags</strong> :{" "}
-              {inventory?.tags.map((item) => item + ",")}
-            </li>
-            {inventory?.checkedOutBy && (
-              <li>
-                <strong>CheckoutBy</strong> : {inventory?.checkedOutBy?.name}
-              </li>
-            )}
           </ul>
         </div>
+        <Link
+          to="/client-request-form"
+          state={{ inventory: inventory }}
+          className="bg-deepBlue  text-gray-300 py-1.5 rounded-md mt-4 cursor-pointer  text-center font-medium w-fit px-8 sm:ml-auto"
+        >
+          {inventory.sellingType == "rent" ? "Rent" : "Purchase"}
+        </Link>
       </Card>
-    </div>
+    </Layout>
   );
 }

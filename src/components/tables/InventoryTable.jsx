@@ -123,8 +123,8 @@ export default function InventoryTable() {
                   <div className="flex items-center gap-x-3">
                     <Link
                       to={`/dashboard/inventory/${inventory.id}`}
-                      className="text-yellow-400 cursor-pointer"
                       state={{ inventory }}
+                      className="text-yellow-400 cursor-pointer"
                     >
                       <Icon icon="mdi:eye" width="24" height="24" />
                     </Link>
