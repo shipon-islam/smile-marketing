@@ -84,7 +84,6 @@ export function AuthProvider({ children }) {
     return navigate("/");
   };
 
-  useEffect;
   const value = {
     currentUser,
     logout,

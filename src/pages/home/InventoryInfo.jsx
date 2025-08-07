@@ -30,7 +30,6 @@ export default function InventoryInfo() {
             <li>
               <strong>Price</strong> : {inventory?.price}
             </li>
-
             <li>
               <strong>Location</strong> : {inventory?.location}
             </li>

@@ -1,5 +1,6 @@
 import ProductCard from "@/components/ProductCard";
 import SelectBox from "@/components/SelectBox";
+import SkeletonCard from "@/components/SkeletonCard";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -119,21 +120,17 @@ export default function TeamPortal() {
           ))}
         </div>
         <div>
+          {loading && (
+            <div className="grid grid-cols-2 md:grid-cols-3  gap-4 md:gap-6 xl:gap-8 2xl:grid-cols-4">
+              {Array.from({ length: 10 }).map((_, index) => {
+                return <SkeletonCard key={index} />;
+              })}
+            </div>
+          )}
           {items && items.length < 1 && (
             <p className="text-xl font-bold text-center mt-40">
               There is no product
             </p>
-          )}
-          {loading && (
-            <div className="text-xl font-bold text-center mt-40 w-fit mx-auto flex gap-4">
-              <Icon
-                icon="eos-icons:bubble-loading"
-                className="text-blue-500"
-                width="32"
-                height="32"
-              />
-              <p>Loading...</p>
-            </div>
           )}
         </div>
       </div>

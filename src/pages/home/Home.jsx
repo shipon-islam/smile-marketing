@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import MultiSelect from "@/components/MultiSelect";
 import ProductCard from "@/components/ProductCard";
 import SelectBox from "@/components/SelectBox";
+import SkeletonCard from "@/components/SkeletonCard";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -18,7 +19,6 @@ export default function ClientPortal() {
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
-
   const { locations, categories } = useGetCatBrandLoc();
   const { items, loading, nextPage, prevPage, hasNext, hasPrev, setFilters } =
     UseInventory();
@@ -121,25 +121,23 @@ export default function ClientPortal() {
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
+
         <div>
+          {loading && (
+            <div className="grid grid-cols-2 md:grid-cols-3  gap-4 md:gap-6 xl:gap-8 2xl:grid-cols-5">
+              {Array.from({ length: 10 }).map((_, index) => {
+                return <SkeletonCard key={index} />;
+              })}
+            </div>
+          )}
           {items && items.length < 1 && (
             <p className="text-xl font-bold text-center mt-40">
               There is no product
             </p>
           )}
-          {loading && (
-            <div className="text-xl font-bold text-center mt-40 w-fit mx-auto flex gap-4">
-              <Icon
-                icon="eos-icons:bubble-loading"
-                className="text-blue-500"
-                width="32"
-                height="32"
-              />
-              <p>Loading...</p>
-            </div>
-          )}
         </div>
       </div>
+
       <div className="flex gap-8 w-fit ml-auto py-8">
         <Button
           className="cursor-pointer"
