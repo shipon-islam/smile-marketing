@@ -100,14 +100,14 @@ export default function ClientRequestForm() {
               >
                 <InputBox
                   name="name"
-                  label="Name :"
+                  label="Name *"
                   type="text"
                   {...register("name")}
                   error_message={errors?.name}
                 />
                 <InputBox
                   name="email"
-                  label="Email :"
+                  label="Email *"
                   type="text"
                   {...register("email")}
                   error_message={errors?.email}
@@ -117,7 +117,7 @@ export default function ClientRequestForm() {
                     className="font-medium mb-2 inline-block ml-1"
                     htmlFor={name}
                   >
-                    Message :
+                    Message *
                   </label>
                   <textarea
                     className={`outline-none pt-2 pb-3 px-2 w-full bg-[#F1F2F4] rounded-lg min-h-[100px]`}

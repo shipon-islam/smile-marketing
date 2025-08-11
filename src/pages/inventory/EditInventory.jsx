@@ -130,12 +130,12 @@ export default function EditInventory() {
               <div className="grid sm:grid-cols-2 gap-8">
                 <InputBox
                   {...register("name")}
-                  label="Product name :"
+                  label="Product name *"
                   error_message={errors.name}
                 />
                 <InputBox
                   {...register("brand")}
-                  label="Brand :"
+                  label="Brand *"
                   type="select"
                   items={brands}
                   placeholder="Select Brand"
@@ -143,7 +143,7 @@ export default function EditInventory() {
                   initalValue={inventory?.brand}
                 />
                 <InputBox
-                  label="Category :"
+                  label="Category *"
                   type="select"
                   items={categories}
                   placeholder="Select Category"
@@ -152,13 +152,13 @@ export default function EditInventory() {
                   initalValue={inventory?.category}
                 />
                 <InputBox
-                  label="Product Price :"
+                  label="Product Price *"
                   {...register("price")}
                   type="number"
                   error_message={errors.price}
                 />
                 <InputBox
-                  label="Location :"
+                  label="Location *"
                   type="select"
                   items={locations}
                   placeholder="Select Location"
@@ -168,7 +168,7 @@ export default function EditInventory() {
                 />
 
                 <InputBox
-                  label="Stock Available :"
+                  label="Stock Available *"
                   type="number"
                   {...register("stock")}
                   error_message={errors?.stock}
@@ -181,7 +181,7 @@ export default function EditInventory() {
                 <div>
                   <div className="grid xl:grid-cols-2 auto-rows-[200px] gap-8 grid-rows-3">
                     <InputBox
-                      label="Selling Type :"
+                      label="Selling Type *"
                       type="select"
                       items={[
                         { name: "Rent", slug: "rent" },
@@ -193,14 +193,14 @@ export default function EditInventory() {
                       initalValue={inventory?.sellingType}
                     />
                     <InputBox
-                      label="Contact Links :"
+                      label="Contact Links *"
                       {...register("contactLink")}
                       error_message={errors.contactLink}
                     />
 
                     <div>
                       <MultiSelectTag
-                        label="Tags"
+                        label="Tags *"
                         setSelected={setSelected}
                         selected={selected}
                         options={tags?.map((tag) => tag.name)}
@@ -240,7 +240,7 @@ export default function EditInventory() {
                       className="font-medium mb-2 inline-block ml-1"
                       htmlFor={name}
                     >
-                      Product Image :{" "}
+                      Product Image *{" "}
                     </label>
                     <FileDropZone setImageUrl={setImageUrl} />
                   </div>

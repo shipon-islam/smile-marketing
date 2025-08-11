@@ -34,7 +34,7 @@ export default function HeaderAvatar() {
                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
               </DropdownMenuItem>
             </Link>
-            <Link to="/dashboard">
+            <Link to="/dashboard/inventory">
               <DropdownMenuItem className="cursor-pointer">
                 Dashdoard
                 <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>

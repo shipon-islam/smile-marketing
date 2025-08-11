@@ -126,8 +126,8 @@ export default function CheckoutRequestForm() {
             >
               <InputBox
                 disabled
-                name="name"
-                label="Name :"
+                name="name "
+                label="Name *"
                 type="text"
                 {...register("name")}
                 error_message={errors?.name}
@@ -135,7 +135,7 @@ export default function CheckoutRequestForm() {
               <InputBox
                 disabled
                 name="email"
-                label="Email :"
+                label="Email *"
                 type="text"
                 {...register("email")}
                 error_message={errors?.email}
@@ -144,7 +144,7 @@ export default function CheckoutRequestForm() {
                 <div className="grid grid-cols-2 gap-4 ">
                   <div>
                     <label className="mb-2 inline-block ml-1">
-                      Needed from
+                      Needed from *
                     </label>
                     <DatePickerInput
                       setDate={setNeededFrom}
@@ -153,7 +153,9 @@ export default function CheckoutRequestForm() {
                     <p></p>
                   </div>
                   <div>
-                    <label className=" mb-2 inline-block ml-1">Needed To</label>
+                    <label className=" mb-2 inline-block ml-1">
+                      Needed To *
+                    </label>
                     <DatePickerInput setDate={setNeededTo} date={neededTo} />
                   </div>
                 </div>
@@ -164,7 +166,7 @@ export default function CheckoutRequestForm() {
                   className="font-medium mb-2 inline-block ml-1"
                   htmlFor={name}
                 >
-                  Message (why need?) :
+                  Message (why need?) *
                 </label>
                 <textarea
                   className={`outline-none pt-2 pb-3 px-2 w-full bg-[#F1F2F4] rounded-lg min-h-[100px]`}

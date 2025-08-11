@@ -76,9 +76,13 @@ export function AuthProvider({ children }) {
         createdAt: Timestamp.now(),
       });
     }
-    if (userSnap?.exists() && userSnap.data().role !== "guest") {
+    if (userSnap?.exists() && userSnap.data().role === "admin") {
       toast.success("Login successful");
-      return navigate("/dashboard");
+      return navigate("/dashboard/inventory");
+    }
+    if (userSnap?.exists() && userSnap.data().role === "team") {
+      toast.success("Login successful");
+      return navigate("/dashboard/team-portal");
     }
     toast.success("Login successful");
     return navigate("/");

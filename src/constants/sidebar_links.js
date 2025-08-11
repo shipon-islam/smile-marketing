@@ -1,11 +1,5 @@
 export const team_sidebar_links = [
   {
-    id: 1,
-    url: "/dashboard",
-    name: "Dashboard",
-    icon: "mage:dashboard-bar",
-  },
-  {
     id: 2,
     url: "/dashboard/team-portal",
     name: "Team Portal",
@@ -28,22 +22,16 @@ export const team_sidebar_links = [
 ];
 export const admin_sidebar_links = [
   {
-    id: 1,
-    url: "/dashboard",
-    name: "Dashboard",
-    icon: "mage:dashboard-bar",
-  },
-  {
     id: 2,
-    url: "/dashboard/team-portal",
-    name: "Team Portal",
-    icon: "carbon:group-access",
-  },
-  {
-    id: 3,
     url: "/dashboard/inventory",
     name: "Inventory",
     icon: "mingcute:inventory-line",
+  },
+  {
+    id: 3,
+    url: "/dashboard/team-portal",
+    name: "Team Portal",
+    icon: "carbon:group-access",
   },
 
   {
@@ -76,11 +64,5 @@ export const admin_sidebar_links = [
     url: "/dashboard/internal-users",
     name: "Internal Users",
     icon: "mdi:users-outline",
-  },
-  {
-    id: 9,
-    url: "/dashboard/tickets",
-    name: "Tickets",
-    icon: "icon-park-outline:tickets-one",
   },
 ];

@@ -61,7 +61,7 @@ export default function CreatePassword() {
             className="font-medium mb-2 inline-block ml-1"
             htmlFor="username"
           >
-            Username
+            Username *
           </label>
           <input
             className="outline-none py-3 px-2 w-full bg-[#F1F2F4] rounded-lg"
@@ -80,7 +80,7 @@ export default function CreatePassword() {
             className="font-medium mb-2 inline-block ml-1"
             htmlFor="password"
           >
-            Password
+            Password *
           </label>
           <input
             className="outline-none py-3 px-2 w-full bg-[#F1F2F4] rounded-lg"

@@ -44,37 +44,37 @@ export default function EditProvider() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <InputBox
-              label="Name"
+              label="Name *"
               type="text"
               {...register("name")}
               error_message={errors?.name}
             />
             <InputBox
-              label="Company"
+              label="Company *"
               type="text"
               {...register("company")}
               error_message={errors?.company}
             />
             <InputBox
-              label="Specialty"
+              label="Specialty *"
               type="text"
               {...register("specialty")}
               error_message={errors?.specialty}
             />
             <InputBox
-              label="Email"
+              label="Email *"
               type="text"
               {...register("email")}
               error_message={errors?.email}
             />
             <InputBox
-              label="Phone Number"
+              label="Phone Number *"
               type="text"
               {...register("phone")}
               error_message={errors?.phone}
             />
             <InputBox
-              label="Tags (write tag devide by comma)"
+              label="Tags (write tag devide by comma) *"
               type="text"
               placeholder="Ex: asus,iphone"
               {...register("tags")}

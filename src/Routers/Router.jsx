@@ -15,13 +15,11 @@ import InternalUsers from "@/pages/user/InternalUsers";
 import { Outlet, Route, Routes } from "react-router-dom";
 import CheckoutRequest from "../pages/checkout-request/CheckoutRequest";
 import ClientRequest from "../pages/ClientRequest";
-import Dashboard from "../pages/Dashboard";
 import Inventory from "../pages/inventory/Inventory";
 import Login from "../pages/Login";
 import Password from "../pages/password/Password";
 import Providers from "../pages/provider/Providers";
 import TeamPortal from "../pages/team-portal/TeamPortal";
-import Tickets from "../pages/Tickets";
 import ProtectedAdmin from "./ProtectedAdmin";
 import ProtectedTeam from "./ProtectedTeam";
 
@@ -41,7 +39,6 @@ export default function Router() {
       <Route path="/dashboard" element={<LayoutWrapper />}>
         {/* Team and Admin Shared Routes */}
         <Route element={<ProtectedTeam />}>
-          <Route index element={<Dashboard />} />
           <Route path="checkout-requests" element={<CheckoutRequest />} />
           <Route path="password" element={<Password />} />
           <Route path="team-portal" element={<TeamPortal />} />
@@ -61,7 +58,6 @@ export default function Router() {
           <Route path="inventory/:id" element={<InventoryDetails />} />
           <Route path="create-password" element={<CreatePassword />} />
           <Route path="edit-password/:id" element={<EditPassword />} />
-          <Route path="tickets" element={<Tickets />} />
           <Route path="providers" element={<Providers />} />
           <Route path="edit-provider/:id" element={<EditProvider />} />
           <Route path="internal-users" element={<InternalUsers />} />
