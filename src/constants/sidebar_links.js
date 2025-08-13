@@ -1,20 +1,20 @@
 export const team_sidebar_links = [
   {
-    id: 2,
+    id: 1,
     url: "/dashboard/team-portal",
     name: "Team Portal",
     icon: "carbon:group-access",
   },
 
   {
-    id: 5,
+    id: 2,
     url: "/dashboard/checkout-requests",
     name: "Checkout Requests",
     icon: "mdi:alert-circle-check-outline",
   },
 
   {
-    id: 7,
+    id: 3,
     url: "/dashboard/password",
     name: "Password",
     icon: "streamline-plump:password-lock-remix",
@@ -22,29 +22,35 @@ export const team_sidebar_links = [
 ];
 export const admin_sidebar_links = [
   {
-    id: 2,
+    id: 1,
     url: "/dashboard/inventory",
     name: "Inventory",
     icon: "mingcute:inventory-line",
   },
   {
-    id: 3,
+    id: 2,
     url: "/dashboard/team-portal",
     name: "Team Portal",
     icon: "carbon:group-access",
   },
 
   {
-    id: 4,
+    id: 3,
     url: "/dashboard/client-requests",
     name: "Client Requests",
     icon: "pixelarticons:git-pull-request",
   },
   {
-    id: 5,
+    id: 4,
     url: "/dashboard/checkout-requests",
     name: "Checkout Requests",
     icon: "mdi:alert-circle-check-outline",
+  },
+  {
+    id: 5,
+    url: "/dashboard/contact-list",
+    name: "Contact list",
+    icon: "proicons:note",
   },
 
   {

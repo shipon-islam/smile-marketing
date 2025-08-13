@@ -8,12 +8,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { UseAuth } from "@/firebase/auth";
+import { firestore_Db } from "@/firebase/config";
 import { usePaginatedDocs } from "@/hooks/usePaginatedDocs";
 import useUpdateDocument from "@/hooks/useUpdateDocument";
 import { getCheckoutStateColor } from "@/utils/getStateColor";
 import { GetTime } from "@/utils/GetTime";
 import { Icon } from "@iconify/react";
-import { Timestamp } from "firebase/firestore";
+import { doc, getDoc, Timestamp } from "firebase/firestore";
 import { useState } from "react";
 import SelectInput from "../SelectInput";
 import { Button } from "../ui/button";
@@ -42,7 +43,15 @@ export default function CheckoutTable() {
       },
     };
     await updateDocument(request?.id, "checkout-requests", updateObj);
+
     let inventoryUpdateObj;
+    const inventoryId = request?.inventory?.id;
+
+    const getInventory = await getDoc(
+      doc(firestore_Db, "inventories", inventoryId)
+    );
+    const stock = Number(getInventory.data().stock);
+
     if (status == "approved") {
       inventoryUpdateObj = {
         checkedOutBy: {
@@ -50,14 +59,16 @@ export default function CheckoutTable() {
           email: request?.requestBy?.email,
         },
         status: "checked out",
+        stock: stock > 0 ? stock - 1 : stock,
       };
     } else {
       inventoryUpdateObj = {
         checkedOutBy: null,
         status: "checked in",
+        stock: stock + 1,
       };
     }
-    const inventoryId = request?.inventory?.id;
+
     await updateDocument(inventoryId, "inventories", inventoryUpdateObj);
     await refetch();
   };

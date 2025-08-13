@@ -1,5 +1,6 @@
 import SidebarWraper from "@/components/SidebarWraper";
 import CheckoutRequestForm from "@/pages/checkout-request/CheckoutRequestForm";
+import ContactList from "@/pages/contact-list/ContactList";
 import ErrorPage from "@/pages/ErrorPage";
 import ClientRequestForm from "@/pages/home/ClientRequestForm";
 import Home from "@/pages/home/Home";
@@ -54,6 +55,7 @@ export default function Router() {
           <Route path="client-requests" element={<ClientRequest />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="create-inventory" element={<CreateInventory />} />
+          <Route path="contact-list" element={<ContactList />} />
           <Route path="edit-inventory/:id" element={<EditInventory />} />
           <Route path="inventory/:id" element={<InventoryDetails />} />
           <Route path="create-password" element={<CreatePassword />} />

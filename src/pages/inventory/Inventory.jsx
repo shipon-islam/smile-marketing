@@ -10,12 +10,17 @@ export default function Inventory() {
       <div className="grid lg:grid-cols-2 gap-5">
         <SummaryBox
           title="items in storage"
-          items={`${total} items`}
+          items={`${total?.reduce((prev, curr) => prev + curr.stock, 0)} items`}
+          amount={`$${total?.reduce((prev, curr) => prev + curr.price, 0)}`}
           icon="fa-solid:store-alt"
         />
         <SummaryBox
           title="items checked out"
-          items={`${checkedOut} items`}
+          items={`${checkedOut.length} items`}
+          amount={`$${checkedOut?.reduce(
+            (prev, curr) => prev + curr.price,
+            0
+          )}`}
           icon="mdi:clipboard-check-outline"
         />
       </div>

@@ -1,8 +1,9 @@
 import { UseAuth } from "@/firebase/auth";
+import { firestore_Db } from "@/firebase/config";
 import useDeleteDocument from "@/hooks/useDeleteDocument";
 import useUpdateDocument from "@/hooks/useUpdateDocument";
 import { GetTime } from "@/utils/GetTime";
-import { Timestamp } from "firebase/firestore";
+import { doc, getDoc, Timestamp } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 export default function RequestBox({ notification }) {
@@ -24,6 +25,10 @@ export default function RequestBox({ notification }) {
       },
       false
     );
+    const getInventory = await getDoc(
+      doc(firestore_Db, "inventories", inventory?.id)
+    );
+    const stock = Number(getInventory.data().stock);
     await updateDocument(
       inventory?.id,
       "inventories",
@@ -33,6 +38,7 @@ export default function RequestBox({ notification }) {
           name: notify?.name,
           email: notify?.email,
         },
+        stock: stock > 0 ? stock - 1 : stock,
       },
       false
     );
@@ -42,6 +48,10 @@ export default function RequestBox({ notification }) {
   };
   const handleRejectClick = async (notify) => {
     const { checkoutId, inventory } = notify;
+    const getInventory = await getDoc(
+      doc(firestore_Db, "inventories", inventory?.id)
+    );
+    const stock = Number(getInventory.data().stock);
     await updateDocument(
       checkoutId,
       "checkout-requests",
@@ -52,6 +62,7 @@ export default function RequestBox({ notification }) {
           name: currentUser?.name,
           email: currentUser?.email,
         },
+        stock: stock + 1,
       },
       false
     );
