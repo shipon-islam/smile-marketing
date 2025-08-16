@@ -11,6 +11,7 @@ import { usePaginatedDocs } from "@/hooks/usePaginatedDocs";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ProvidersSkeleton from "../Skeletons/ProvidersSkeleton";
 import { Button } from "../ui/button";
 import { DeleteModal } from "./DeleteModal";
 import TableTopper from "./TableTopper";
@@ -41,69 +42,62 @@ export default function ProviderTable() {
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {items?.map((provider, id) => (
-              <TableRow key={id}>
-                <TableCell className="font-medium text-wrap capitalize">
-                  {provider.name}
-                </TableCell>
-                {/* <TableCell>{request.clientName}</TableCell> */}
-                <TableCell>{provider.company}</TableCell>
-                <TableCell>
-                  {provider.email}
-                  <br />
-                  {provider.phone}
-                </TableCell>
+          {loading ? (
+            <ProvidersSkeleton />
+          ) : (
+            <TableBody>
+              {items?.map((provider, id) => (
+                <TableRow key={id}>
+                  <TableCell className="font-medium text-wrap capitalize">
+                    {provider.name}
+                  </TableCell>
+                  {/* <TableCell>{request.clientName}</TableCell> */}
+                  <TableCell>{provider.company}</TableCell>
+                  <TableCell>
+                    {provider.email}
+                    <br />
+                    {provider.phone}
+                  </TableCell>
 
-                <TableCell>{provider.specialty}</TableCell>
-                <TableCell>
-                  <div className="flex gap-x-1.5">
-                    {provider.tags.map((tag, index) => (
-                      <span
-                        className="bg-light p-2 rounded-lg text-gray-400 text-sm"
-                        key={index}
+                  <TableCell>{provider.specialty}</TableCell>
+                  <TableCell>
+                    <div className="flex gap-x-1.5">
+                      {provider.tags.map((tag, index) => (
+                        <span
+                          className="bg-light p-2 rounded-lg text-gray-400 text-sm"
+                          key={index}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-x-3">
+                      <DeleteModal
+                        id={provider.id}
+                        collectionName="providers"
+                        refetch={refetch}
+                      />
+                      <Link
+                        to={`/dashboard/edit-provider/${provider.id}`}
+                        state={{ provider }}
+                        className="text-green-400 cursor-pointer"
                       >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-x-3">
-                    <DeleteModal
-                      id={provider.id}
-                      collectionName="providers"
-                      refetch={refetch}
-                    />
-                    <Link
-                      to={`/dashboard/edit-provider/${provider.id}`}
-                      state={{ provider }}
-                      className="text-green-400 cursor-pointer"
-                    >
-                      <Icon icon="akar-icons:edit" width="24" height="24" />
-                    </Link>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                        <Icon icon="akar-icons:edit" width="24" height="24" />
+                      </Link>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          )}
         </Table>
         <div>
           {items && items.length < 1 && (
             <p className="text-xl font-bold text-center mt-40">
               There is no providers
             </p>
-          )}
-          {loading && (
-            <div className="text-xl font-bold text-center mt-40 w-fit mx-auto flex gap-4">
-              <Icon
-                icon="eos-icons:bubble-loading"
-                className="text-blue-500"
-                width="32"
-                height="32"
-              />
-              <p>Loading...</p>
-            </div>
           )}
         </div>
       </div>

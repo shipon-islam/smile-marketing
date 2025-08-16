@@ -4,6 +4,8 @@ import { HashRouter } from "react-router-dom";
 import App from "./App.jsx";
 import { AuthProvider } from "./firebase/auth";
 import "./index.css";
+
+import { AllUtilityProvider } from "./providers/AllUtilityProvider.jsx";
 import { InventoryProvider } from "./providers/InventoryProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -15,7 +17,9 @@ createRoot(document.getElementById("root")).render(
     >
       <AuthProvider>
         <InventoryProvider>
-          <App />
+          <AllUtilityProvider>
+            <App />
+          </AllUtilityProvider>
         </InventoryProvider>
       </AuthProvider>
     </HashRouter>

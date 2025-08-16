@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, firestore_Db } from "./config";
 
 const AuthContext = React.createContext();
-
+const accessMail = ["shiponkhan566@gmail.com"];
 export function UseAuth() {
   return useContext(AuthContext);
 }
@@ -50,17 +50,21 @@ export function AuthProvider({ children }) {
   //signup with google
   const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
-    // const user = result?.user;
-    // if (user && !user.email.endsWith("@smilemkt.com")) {
-    //   signOut(auth);
-    //   toast.error("You can't login with @smilemkt.com email");
-    //   setTimeout(() => {
-    //     window?.location.reload();
-    //   }, 200);
+    const result = await signInWithPopup(auth, provider);
+    const user = result?.user;
+    if (
+      user &&
+      !user.email.endsWith("@smilemkt.com") &&
+      !accessMail.includes(user.email)
+    ) {
+      signOut(auth);
+      toast.error("You can't login without @smilemkt.com email");
+      setTimeout(() => {
+        setCurrentUser(null);
+      }, 200);
 
-    //   return;
-    // }
+      return;
+    }
 
     const { uid, displayName, email, photoURL } = auth.currentUser;
 

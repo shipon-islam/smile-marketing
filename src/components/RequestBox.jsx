@@ -48,10 +48,6 @@ export default function RequestBox({ notification }) {
   };
   const handleRejectClick = async (notify) => {
     const { checkoutId, inventory } = notify;
-    const getInventory = await getDoc(
-      doc(firestore_Db, "inventories", inventory?.id)
-    );
-    const stock = Number(getInventory.data().stock);
     await updateDocument(
       checkoutId,
       "checkout-requests",
@@ -62,7 +58,6 @@ export default function RequestBox({ notification }) {
           name: currentUser?.name,
           email: currentUser?.email,
         },
-        stock: stock + 1,
       },
       false
     );

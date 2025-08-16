@@ -42,6 +42,8 @@ export default function Router() {
         <Route element={<ProtectedTeam />}>
           <Route path="checkout-requests" element={<CheckoutRequest />} />
           <Route path="password" element={<Password />} />
+          <Route path="create-password" element={<CreatePassword />} />
+          <Route path="edit-password/:id" element={<EditPassword />} />
           <Route path="team-portal" element={<TeamPortal />} />
           <Route
             path="checkout-request-form"
@@ -58,8 +60,7 @@ export default function Router() {
           <Route path="contact-list" element={<ContactList />} />
           <Route path="edit-inventory/:id" element={<EditInventory />} />
           <Route path="inventory/:id" element={<InventoryDetails />} />
-          <Route path="create-password" element={<CreatePassword />} />
-          <Route path="edit-password/:id" element={<EditPassword />} />
+
           <Route path="providers" element={<Providers />} />
           <Route path="edit-provider/:id" element={<EditProvider />} />
           <Route path="internal-users" element={<InternalUsers />} />

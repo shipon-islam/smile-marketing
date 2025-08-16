@@ -80,7 +80,11 @@ export const usePaginatedDocs = (
       conditions.push(where("isVisibleToClients", "==", true));
     }
     if (filters.roleAccess) {
-      conditions.push(where("access", "array-contains", "team"));
+      conditions.push(where("access", "array-contains", filters.roleAccess));
+    }
+    if (filters.myPassword) {
+      console.log(filters.myPassword);
+      conditions.push(where("creator.email", "==", filters.myPassword));
     }
 
     q = query(q, ...conditions, orderBy("createdAt", "desc"));

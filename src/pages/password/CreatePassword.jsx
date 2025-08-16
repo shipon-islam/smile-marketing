@@ -21,19 +21,37 @@ export default function CreatePassword() {
   } = useForm({ resolver: yupResolver(passwordSchema) });
 
   const onSubmit = async (data) => {
-    const file = data.logo[0];
+    const files = data.logo;
+    let passwordObj;
     setLoading(true);
-    const imageUrl = await uploadImage(file, "logo");
-    const passwordObj = {
-      ...data,
-      logo: imageUrl,
-      access: ["admin"],
-      creator: {
-        id: currentUser?.id,
-        name: currentUser?.name,
-        email: currentUser?.email,
-      },
-    };
+    if (files && files.length > 0) {
+      const imageUrl = await uploadImage(files[0], "logo");
+      passwordObj = {
+        logo: imageUrl,
+        websiteLink: data.websiteLink,
+        username: data.username,
+        password: data.password,
+        access: data.isSelf ? [currentUser?.email] : [],
+        creator: {
+          id: currentUser?.id,
+          name: currentUser?.name,
+          email: currentUser?.email,
+        },
+      };
+    } else {
+      passwordObj = {
+        websiteLink: data.websiteLink,
+        username: data.username,
+        password: data.password,
+        access: data.isSelf ? [currentUser?.email] : [],
+        creator: {
+          id: currentUser?.id,
+          name: currentUser?.name,
+          email: currentUser?.email,
+        },
+      };
+    }
+
     await createDocument("passwords", passwordObj, "Account password");
     reset();
     setLoading(false);
@@ -61,6 +79,25 @@ export default function CreatePassword() {
             className="font-medium mb-2 inline-block ml-1"
             htmlFor="username"
           >
+            Website Link *
+          </label>
+          <input
+            className="outline-none py-3 px-2 w-full bg-[#F1F2F4] rounded-lg"
+            id="websiteLink"
+            type="text"
+            {...register("websiteLink")}
+          />
+          {errors?.websiteLink && (
+            <p className="text-sm text-red-500 ml-1">
+              {errors?.websiteLink?.message}
+            </p>
+          )}
+        </div>
+        <div>
+          <label
+            className="font-medium mb-2 inline-block ml-1"
+            htmlFor="username"
+          >
             Username *
           </label>
           <input
@@ -75,6 +112,7 @@ export default function CreatePassword() {
             </p>
           )}
         </div>
+
         <div>
           <label
             className="font-medium mb-2 inline-block ml-1"

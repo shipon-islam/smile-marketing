@@ -14,23 +14,28 @@ import {
 } from "@/components/ui/table";
 import { usePaginatedDocs } from "@/hooks/usePaginatedDocs";
 import useUpdateDocument from "@/hooks/useUpdateDocument";
+import { UseUtility } from "@/providers/AllUtilityProvider";
 import { getClientStateColor } from "@/utils/getStateColor";
 import { GetTime } from "@/utils/GetTime";
-import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectInput from "../SelectInput";
+import ClientSkeleton from "../Skeletons/ClientSkeleton";
 import { Button } from "../ui/button";
 import { DeleteModal } from "./DeleteModal";
 import TableTopper from "./TableTopper";
 export default function ClientRequestTable() {
   const [filters, setFilters] = useState({});
   const { updateDocument } = useUpdateDocument();
+  const { clientStatus } = UseUtility();
   const { items, loading, nextPage, prevPage, hasNext, hasPrev, refetch } =
     usePaginatedDocs("client-requests", filters);
   const handleStatusUpdate = async (id, status) => {
     await updateDocument(id, "client-requests", { status });
     await refetch();
   };
+  useEffect(() => {
+    setFilters({ status: clientStatus });
+  }, [clientStatus]);
   return (
     <div>
       <TableTopper
@@ -54,84 +59,79 @@ export default function ClientRequestTable() {
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {items?.map((request, id) => (
-              <TableRow key={id}>
-                <TableCell className="font-medium">
-                  <div>
-                    <h5 className="text-wrap capitalize">
-                      {request?.inventory?.name}
-                    </h5>
-                    <div className="text-sm space-y-1 mt-1">
-                      <p className="flex gap-1">
-                        <span className="font-normal">Band:</span>
-                        <span className="font-light">
-                          {request?.inventory?.brand}
-                        </span>
-                      </p>
-                      <p className="flex gap-1">
-                        <span className="font-normal">Category:</span>
-                        <span className="font-light">
-                          {request?.inventory?.category}
-                        </span>
-                      </p>
+          {loading ? (
+            <ClientSkeleton />
+          ) : (
+            <TableBody>
+              {items?.map((request, id) => (
+                <TableRow key={id}>
+                  <TableCell className="font-medium">
+                    <div>
+                      <h5 className="text-wrap capitalize">
+                        {request?.inventory?.name}
+                      </h5>
+                      <div className="text-sm space-y-1 mt-1">
+                        <p className="flex gap-1">
+                          <span className="font-normal">Band:</span>
+                          <span className="font-light">
+                            {request?.inventory?.brand}
+                          </span>
+                        </p>
+                        <p className="flex gap-1">
+                          <span className="font-normal">Category:</span>
+                          <span className="font-light">
+                            {request?.inventory?.category}
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </TableCell>
-                {/* <TableCell>{request.clientName}</TableCell> */}
-                <TableCell>
-                  {request.name}
-                  <br /> {request.email}
-                </TableCell>
-                <TableCell>
-                  <HoverCard>
-                    <HoverCardTrigger className="cursor-pointer hover:underline">
-                      {request.message.slice(0, 20)}...
-                    </HoverCardTrigger>
-                    <HoverCardContent>
-                      <p className="text-sm">{request?.message}</p>
-                    </HoverCardContent>
-                  </HoverCard>
-                </TableCell>
-                <TableCell className={getClientStateColor(request.status)}>
-                  <SelectInput
-                    className="w-34 capitalize"
-                    selectPlaceholder="change access"
-                    onSelect={(value) => handleStatusUpdate(request.id, value)}
-                    selectlist={["new", "in_progress", "completed"]}
-                    defaultValue={request.status}
-                  />
-                </TableCell>
-                <TableCell>{GetTime(request.createdAt)}</TableCell>
-                <TableCell className="w-[20px]">
-                  <div className="flex items-center justify-center gap-x-3">
-                    <DeleteModal
-                      id={request.id}
-                      collectionName={"client-requests"}
-                      refetch={refetch}
+                  </TableCell>
+                  {/* <TableCell>{request.clientName}</TableCell> */}
+                  <TableCell>
+                    {request.name}
+                    <br /> {request.email}
+                  </TableCell>
+                  <TableCell>
+                    <HoverCard>
+                      <HoverCardTrigger className="cursor-pointer hover:underline">
+                        {request.message.slice(0, 20)}...
+                      </HoverCardTrigger>
+                      <HoverCardContent>
+                        <p className="text-sm">{request?.message}</p>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </TableCell>
+                  <TableCell className={getClientStateColor(request.status)}>
+                    <SelectInput
+                      className="w-34 capitalize"
+                      selectPlaceholder="change access"
+                      onSelect={(value) =>
+                        handleStatusUpdate(request.id, value)
+                      }
+                      selectlist={["new", "in_progress", "completed"]}
+                      defaultValue={request.status}
                     />
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                  </TableCell>
+                  <TableCell>{GetTime(request.createdAt)}</TableCell>
+                  <TableCell className="w-[20px]">
+                    <div className="flex items-center justify-center gap-x-3">
+                      <DeleteModal
+                        id={request.id}
+                        collectionName={"client-requests"}
+                        refetch={refetch}
+                      />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          )}
         </Table>
         <div>
           {items && items.length < 1 && (
             <p className="text-xl font-bold text-center mt-40">
               There is no items
             </p>
-          )}
-          {loading && (
-            <div className="text-xl font-bold text-center mt-40 w-fit mx-auto flex gap-4">
-              <Icon
-                icon="eos-icons:bubble-loading"
-                className="text-blue-500"
-                width="32"
-                height="32"
-              />
-              <p>Loading...</p>
-            </div>
           )}
         </div>
       </div>

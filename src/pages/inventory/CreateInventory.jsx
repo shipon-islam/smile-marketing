@@ -13,7 +13,7 @@ import { inventorySchema } from "@/yup-schema/inventory";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Icon } from "@iconify/react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 const steps = ["Product Info", "Product Info and Image", "Preview and Confirm"];
@@ -34,6 +34,9 @@ export default function CreateInventory() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(inventorySchema),
+    defaultValues: {
+      isVisibleToClients: true,
+    },
   });
 
   const handleNext = () => step < 3 && setStep(step + 1);
@@ -76,6 +79,9 @@ export default function CreateInventory() {
       toast.error(error.message, { duration: 3000 });
     }
   };
+  useEffect(() => {
+    console.log(getValues("isVisibleToClients"));
+  }, [getValues]);
 
   return (
     <div>

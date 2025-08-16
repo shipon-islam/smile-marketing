@@ -1,7 +1,12 @@
 import useImageUpload from "@/hooks/useImageUplaod";
 import { useState } from "react";
 
-const FileDropZone = ({ setImageUrl }) => {
+const FileDropZone = ({
+  setImageUrl,
+  folderPath = "inventory",
+  fileType = "image/png, image/jpeg, image/jpg, image/webp",
+  supportedType = "PNG, JPG,JPEG,WEBP (MAX. 800x400px)",
+}) => {
   const [dragActive, setDragActive] = useState(false);
   const [file, setFile] = useState(null);
   const { uploadImage, progress } = useImageUpload();
@@ -9,7 +14,7 @@ const FileDropZone = ({ setImageUrl }) => {
     setFile(img);
     if (img) {
       try {
-        const url = await uploadImage(img, "inventory");
+        const url = await uploadImage(img, folderPath);
         console.log("Uploaded Image URL:", url);
         setImageUrl(url);
       } catch (err) {
@@ -30,7 +35,7 @@ const FileDropZone = ({ setImageUrl }) => {
     setDragActive(false);
     const droppedFile = e.dataTransfer.files?.[0];
     if (droppedFile) {
-      setImageUrl(droppedFile);
+      handleUpload(droppedFile);
     }
   };
 
@@ -87,10 +92,10 @@ const FileDropZone = ({ setImageUrl }) => {
             drop
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            SVG, PNG, JPG or GIF (MAX. 800x400px)
+            {supportedType}
           </p>
           {file && (
-            <p className="mt-2 text-sm text-green-600 dark:text-green-400">
+            <p className="mt-2 text-sm text-green-600 dark:text-green-400  text-center">
               File selected: {file.name}
             </p>
           )}
@@ -100,6 +105,7 @@ const FileDropZone = ({ setImageUrl }) => {
           type="file"
           className="hidden"
           onChange={handleFileChange}
+          accept={fileType}
         />
       </label>
     </div>

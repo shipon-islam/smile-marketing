@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const MultiSelectTag = ({
-  options,
+  options: fieldOption,
   label,
   selected,
   setSelected,
@@ -9,8 +9,13 @@ const MultiSelectTag = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const boxRef = useRef();
+  const inputRef = useRef();
+  const [options, setOptions] = useState(fieldOption);
 
-  const toggleDropdown = () => setIsOpen((prev) => !prev);
+  const toggleDropdown = () => {
+    setOptions(fieldOption);
+    setIsOpen((prev) => !prev);
+  };
 
   const handleSelect = (option) => {
     if (!selected.includes(option)) {
@@ -33,6 +38,11 @@ const MultiSelectTag = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (boxRef.current) {
+      inputRef?.current?.focus();
+    }
+  }, [isOpen]);
   return (
     <div className={`w-full max-w-md mx-auto ${className}`} ref={boxRef}>
       <label className="font-medium mb-2 inline-block ml-1" htmlFor={name}>
@@ -62,22 +72,41 @@ const MultiSelectTag = ({
 
         {isOpen && (
           <div className="absolute left-0 top-full mt-1 w-full bg-white border rounded shadow z-10 max-h-48 overflow-y-auto">
-            {options
-              .filter((opt) => !selected.includes(opt))
-              .map((opt) => (
-                <div
-                  key={opt}
-                  onClick={() => handleSelect(opt)}
-                  className="px-3 py-2 hover:bg-blue-100 cursor-pointer"
-                >
-                  {opt}
+            <div>
+              <input
+                type="text"
+                ref={inputRef}
+                onChange={(e) => {
+                  console.log(e);
+                  setOptions(
+                    fieldOption.filter((item) =>
+                      item.startsWith(e.target.value)
+                    )
+                  );
+                }}
+                className="border w-full px-3 py-2"
+                placeholder="Search.."
+              />
+            </div>
+            <div>
+              {options
+                .filter((opt) => !selected.includes(opt))
+                .map((opt) => (
+                  <div
+                    key={opt}
+                    onClick={() => handleSelect(opt)}
+                    className="px-3 py-2 hover:bg-blue-100 cursor-pointer"
+                  >
+                    {opt}
+                  </div>
+                ))}
+              {options.filter((opt) => !selected.includes(opt)).length ===
+                0 && (
+                <div className="px-3 py-2 text-gray-400 text-sm">
+                  No more options
                 </div>
-              ))}
-            {options.filter((opt) => !selected.includes(opt)).length === 0 && (
-              <div className="px-3 py-2 text-gray-400 text-sm">
-                No more options
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
       </div>

@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 
 export default function HeaderAvatar() {
   const { currentUser, logout } = UseAuth();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,7 +27,7 @@ export default function HeaderAvatar() {
       <DropdownMenuContent className="w-60 sm:w-56" align="end">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
 
-        {(currentUser?.role === "admin" || currentUser?.role === "team") && (
+        {currentUser?.role === "admin" && (
           <DropdownMenuGroup>
             <Link to="/dashboard/profile">
               <DropdownMenuItem className="cursor-pointer">
@@ -35,6 +36,22 @@ export default function HeaderAvatar() {
               </DropdownMenuItem>
             </Link>
             <Link to="/dashboard/inventory">
+              <DropdownMenuItem className="cursor-pointer">
+                Dashdoard
+                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </Link>
+          </DropdownMenuGroup>
+        )}
+        {currentUser?.role === "team" && (
+          <DropdownMenuGroup>
+            <Link to="/dashboard/profile">
+              <DropdownMenuItem className="cursor-pointer">
+                Profile
+                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </Link>
+            <Link to="/dashboard/team-portal">
               <DropdownMenuItem className="cursor-pointer">
                 Dashdoard
                 <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>

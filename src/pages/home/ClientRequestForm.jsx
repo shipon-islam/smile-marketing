@@ -70,19 +70,21 @@ export default function ClientRequestForm() {
           <CardContent className="grid md:grid-cols-2 gap-8 mt-8">
             <div className="shadow rounded-lg p-4">
               <img
-                className="w-[200px] h-auto md:w-[280px] md:h-[220px] "
-                src={"/images/products/laptop.png"}
+                className="w-[200px] h-auto md:w-[280px] md:h-[220px] rounded-md object-cover"
+                src={inventory?.imageUrl}
                 alt={"product-image"}
               />
-              <div className="space-y-2 bg-[#F1F2F4] p-8 rounded-md ">
-                <p className="">Product name : MacBook M1 Pro</p>
-                <p>Price : $1500</p>
-                <p>Category : Technology</p>
-                <p>Band :Apple</p>
-                <p>Stock: 4 available</p>
+              <div className="space-y-2 bg-[#F1F2F4] p-6 rounded-md mt-10 capitalize">
+                <p className="">Product name : {inventory?.name}</p>
+                <p>Price : ${inventory?.price}</p>
+                <p>Category : {inventory?.category.replace("-", " ")}</p>
+                <p>Band : {inventory?.brand}</p>
+                <p>Stock: {inventory?.stock} available</p>
                 <div className="flex gap-2 ">
                   <span>Selling Type :</span>
-                  <span className="text-gray-500">Rent</span>
+                  <span className="text-gray-500">
+                    {inventory?.sellingType}
+                  </span>
                 </div>
               </div>
             </div>

@@ -9,15 +9,17 @@ import {
 } from "@/components/ui/table";
 import { usePaginatedDocs } from "@/hooks/usePaginatedDocs";
 import useUpdateDocument from "@/hooks/useUpdateDocument";
-import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { UseUtility } from "@/providers/AllUtilityProvider";
+import { useEffect, useState } from "react";
 import SelectInput from "../SelectInput";
+import UserSkeleton from "../Skeletons/UserSkeleton";
 import { Button } from "../ui/button";
 import { DeleteModal } from "./DeleteModal";
 import TableTopper from "./TableTopper";
 export default function InternalUsersTable() {
   const [filters, setFilters] = useState({});
   const { updateDocument } = useUpdateDocument();
+  const { userStatus } = UseUtility();
   const { items, loading, nextPage, prevPage, hasNext, hasPrev, refetch } =
     usePaginatedDocs("users", filters);
 
@@ -25,6 +27,9 @@ export default function InternalUsersTable() {
     await updateDocument(id, "users", { role: role });
     await refetch();
   };
+  useEffect(() => {
+    setFilters({ role: userStatus });
+  }, [userStatus]);
   return (
     <div>
       <TableTopper
@@ -34,7 +39,7 @@ export default function InternalUsersTable() {
         onSearch={(e) => setFilters({ search: e.toLowerCase() })}
         onSelect={(e) => setFilters({ role: e })}
       />
-      <div className="min-h-[60vh]">
+      <div className="min-h-[50vh]">
         <Table className="w-full text-[1rem]">
           <TableCaption>A list of internal user</TableCaption>
           <TableHeader className="bg-gray-200/55 !rounded-lg">
@@ -46,52 +51,45 @@ export default function InternalUsersTable() {
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {items?.map((user, id) => (
-              <TableRow key={id}>
-                <TableCell className="font-medium text-wrap capitalize">
-                  {user.name}
-                </TableCell>
-                {/* <TableCell>{request.clientName}</TableCell> */}
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.role}</TableCell>
+          {loading ? (
+            <UserSkeleton />
+          ) : (
+            <TableBody>
+              {items?.map((user, id) => (
+                <TableRow key={id}>
+                  <TableCell className="font-medium text-wrap capitalize">
+                    {user.name}
+                  </TableCell>
+                  {/* <TableCell>{request.clientName}</TableCell> */}
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.role}</TableCell>
 
-                <TableCell>
-                  <SelectInput
-                    selectPlaceholder="change access"
-                    onSelect={(value) => handleRoleUpdate(user.id, value)}
-                    selectlist={["admin", "team", "guest"]}
-                  />
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-x-3">
-                    <DeleteModal
-                      id={user.id}
-                      collectionName="users"
-                      refetch={refetch}
+                  <TableCell>
+                    <SelectInput
+                      selectPlaceholder="change access"
+                      onSelect={(value) => handleRoleUpdate(user.id, value)}
+                      selectlist={["admin", "team", "guest"]}
                     />
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-x-3">
+                      <DeleteModal
+                        id={user.id}
+                        collectionName="users"
+                        refetch={refetch}
+                      />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          )}
         </Table>
         <div>
           {items && items.length < 1 && (
             <p className="text-xl font-bold text-center mt-40">
               There is no users
             </p>
-          )}
-          {loading && (
-            <div className="text-xl font-bold text-center mt-40 w-fit mx-auto flex gap-4">
-              <Icon
-                icon="eos-icons:bubble-loading"
-                className="text-blue-500"
-                width="32"
-                height="32"
-              />
-              <p>Loading...</p>
-            </div>
           )}
         </div>
       </div>

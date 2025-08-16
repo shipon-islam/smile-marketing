@@ -1,11 +1,15 @@
 import { DatePickerInput } from "@/components/DatePickerInput";
+import FileDropZone from "@/components/FileDropZone";
 import InputBox from "@/components/InputBox";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { UseAuth } from "@/firebase/auth";
 import useCreateDocument from "@/hooks/useCreateDocument";
+import useImageDelete from "@/hooks/useImageDelete";
+import { getExtention } from "@/utils/getExtention";
 import { clientRequestSchema } from "@/yup-schema/clientRequestSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Icon } from "@iconify/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -16,8 +20,11 @@ export default function CheckoutRequestForm() {
   const inventory = location?.state?.inventory;
   const [neededFrom, setNeededFrom] = useState(null);
   const [neededTo, setNeededTo] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const { currentUser } = UseAuth();
+  const { deleteImage, deleting } = useImageDelete();
   const [errorDate, setErrorDate] = useState("");
+  const [imageError, setImageError] = useState("");
   const { createDocument, loading } = useCreateDocument();
   const {
     register,
@@ -32,17 +39,24 @@ export default function CheckoutRequestForm() {
       message: "",
     },
   });
+
   const onSubmit = async (value) => {
     if (!neededFrom || !neededTo) {
       setErrorDate("Start and End date required");
       return;
     }
+    if (!imageUrl) {
+      setImageError("Contacts is Required!");
+      return;
+    }
 
+    //create checkout request
     const requestObj = {
       decisionBy: null,
       decisionDate: null,
       neededFrom,
       neededTo,
+      contactsPdf: imageUrl,
       message: value.message,
       status: "pending", //status="pending"||"approved"||"rejected"
       requestBy: {
@@ -60,11 +74,13 @@ export default function CheckoutRequestForm() {
         imageUrl: inventory?.imageUrl,
       },
     };
+
     const checkoutSnap = await createDocument(
       "checkout-requests",
       requestObj,
       "Checkout request"
     );
+    //create notification request
     const notificationObj = {
       isView: false,
       pageType: "checkout",
@@ -87,6 +103,7 @@ export default function CheckoutRequestForm() {
     reset();
     navigate("/dashboard/checkout-requests");
   };
+
   return (
     <div className=" mx-auto mt-8">
       <Card className="!p-2 md:p-8">
@@ -96,19 +113,19 @@ export default function CheckoutRequestForm() {
         <CardContent className="grid md:grid-cols-2 gap-8 my-8">
           <div className="shadow rounded-lg p-4">
             <img
-              className="w-[200px] h-auto md:w-[280px] md:h-[220px] "
-              src={"/images/products/laptop.png"}
+              className="w-[200px] h-auto md:w-[280px] md:h-[220px] rounded-md object-cover"
+              src={inventory?.imageUrl}
               alt={"product-image"}
             />
-            <div className="space-y-2 bg-[#F1F2F4] p-6 rounded-md mt-10">
-              <p className="">Product name : MacBook M1 Pro</p>
-              <p>Price : $1500</p>
-              <p>Category : Technology</p>
-              <p>Band :Apple</p>
-              <p>Stock: 4 available</p>
+            <div className="space-y-2 bg-[#F1F2F4] p-6 rounded-md mt-10 capitalize">
+              <p className="">Product name : {inventory?.name}</p>
+              <p>Price : ${inventory?.price}</p>
+              <p>Category : {inventory?.category.replace("-", " ")}</p>
+              <p>Band : {inventory?.brand}</p>
+              <p>Stock: {inventory?.stock} available</p>
               <div className="flex gap-2 ">
                 <span>Selling Type :</span>
-                <span className="text-gray-500">Rent</span>
+                <span className="text-gray-500">{inventory?.sellingType}</span>
               </div>
             </div>
           </div>
@@ -140,7 +157,7 @@ export default function CheckoutRequestForm() {
                 {...register("email")}
                 error_message={errors?.email}
               />
-              <div className="mb-4">
+              <div>
                 <div className="grid grid-cols-2 gap-4 ">
                   <div>
                     <label className="mb-2 inline-block ml-1">
@@ -161,6 +178,61 @@ export default function CheckoutRequestForm() {
                 </div>
                 <p className="text-red-500 text-sm ml-1 mt-1">{errorDate}</p>
               </div>
+              <div>
+                <p className="font-medium mb-2">Contacts *</p>
+                <div className="flex flex-col 2xl:flex-row gap-2">
+                  <div className="flex-1">
+                    <FileDropZone
+                      setImageUrl={setImageUrl}
+                      folderPath="contacts"
+                      fileType="application/pdf"
+                      supportedType="ONLY PDF, MAX SIZE (1MB)"
+                    />
+                    {imageError && (
+                      <p className="text-sm text-red-500 ml-1">{imageError}</p>
+                    )}
+                  </div>
+
+                  <div className="relative">
+                    {imageUrl && getExtention(imageUrl) == "pdf" ? (
+                      <iframe
+                        className="w-full 2xl:max-w-[220px] h-full max-h-[155px]  rounded-lg object-cover border border-gray-200"
+                        src={imageUrl}
+                        title="PDF Viewer"
+                      />
+                    ) : (
+                      <img
+                        src={imageUrl || "placeholder_image.png"}
+                        className="w-full 2xl:max-w-[220px] h-full max-h-[155px]  rounded-lg object-cover border border-gray-200"
+                      />
+                    )}
+
+                    {imageUrl && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          deleteImage(imageUrl);
+                          setImageUrl("");
+                        }}
+                      >
+                        <Icon
+                          className="absolute top-2 right-2 text-red-500 cursor-pointer size-5"
+                          icon="material-symbols:delete"
+                        />
+                      </button>
+                    )}
+                    {deleting && (
+                      <button>
+                        <Icon
+                          className="absolute top-2 right-2 text-red-500 cursor-pointer size-5"
+                          icon="eos-icons:loading"
+                        />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <label
                   className="font-medium mb-2 inline-block ml-1"

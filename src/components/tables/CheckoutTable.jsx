@@ -11,12 +11,13 @@ import { UseAuth } from "@/firebase/auth";
 import { firestore_Db } from "@/firebase/config";
 import { usePaginatedDocs } from "@/hooks/usePaginatedDocs";
 import useUpdateDocument from "@/hooks/useUpdateDocument";
+import { UseUtility } from "@/providers/AllUtilityProvider";
 import { getCheckoutStateColor } from "@/utils/getStateColor";
 import { GetTime } from "@/utils/GetTime";
-import { Icon } from "@iconify/react";
 import { doc, getDoc, Timestamp } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectInput from "../SelectInput";
+import CheckoutSkeleton from "../Skeletons/CheckoutSkeleton";
 import { Button } from "../ui/button";
 import {
   HoverCard,
@@ -28,7 +29,7 @@ import TableTopper from "./TableTopper";
 export default function CheckoutTable() {
   const [filters, setFilters] = useState({});
   const { currentUser } = UseAuth();
-
+  const { checkoutStatus } = UseUtility();
   const { updateDocument } = useUpdateDocument();
   const { items, loading, nextPage, prevPage, hasNext, hasPrev, refetch } =
     usePaginatedDocs("checkout-requests", filters);
@@ -42,17 +43,18 @@ export default function CheckoutTable() {
         email: currentUser?.email,
       },
     };
-    await updateDocument(request?.id, "checkout-requests", updateObj);
 
-    let inventoryUpdateObj;
+    await updateDocument(request?.id, "checkout-requests", updateObj, false);
+
     const inventoryId = request?.inventory?.id;
-
     const getInventory = await getDoc(
       doc(firestore_Db, "inventories", inventoryId)
     );
     const stock = Number(getInventory.data().stock);
 
-    if (status == "approved") {
+    let inventoryUpdateObj;
+    const checkedoutStatus = request?.status;
+    if (status == "approved" && checkedoutStatus !== "approved") {
       inventoryUpdateObj = {
         checkedOutBy: {
           name: request?.requestBy?.name,
@@ -61,17 +63,26 @@ export default function CheckoutTable() {
         status: "checked out",
         stock: stock > 0 ? stock - 1 : stock,
       };
-    } else {
+    } else if (status !== "approved" && checkedoutStatus == "approved") {
       inventoryUpdateObj = {
         checkedOutBy: null,
         status: "checked in",
         stock: stock + 1,
+      };
+    } else {
+      inventoryUpdateObj = {
+        checkedOutBy: null,
+        status: "checked in",
+        stock: stock,
       };
     }
 
     await updateDocument(inventoryId, "inventories", inventoryUpdateObj);
     await refetch();
   };
+  useEffect(() => {
+    setFilters({ status: checkoutStatus });
+  }, [checkoutStatus]);
   if (currentUser?.role === "team") {
     return (
       <div>
@@ -92,70 +103,63 @@ export default function CheckoutTable() {
                 {/* <TableHead>Action</TableHead> */}
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {items?.map((request, id) => (
-                <TableRow key={id}>
-                  <TableCell className="font-medium">
-                    <div>
-                      <h5 className="text-wrap capitalize">
-                        {request?.inventory?.name}{" "}
-                      </h5>
-                      <div className="text-sm space-y-1 mt-1">
-                        <p className="flex gap-1">
-                          <span className="font-normal">Band:</span>
-                          <span className="font-light">
-                            {request?.inventory?.brand}
-                          </span>
-                        </p>
-                        <p className="flex gap-1">
-                          <span className="font-normal">Category:</span>
-                          <span className="font-light">
-                            {request?.inventory?.category}
-                          </span>
-                        </p>
+            {loading ? (
+              <CheckoutSkeleton type="team" />
+            ) : (
+              <TableBody>
+                {items?.map((request, id) => (
+                  <TableRow key={id}>
+                    <TableCell className="font-medium">
+                      <div>
+                        <h5 className="text-wrap capitalize">
+                          {request?.inventory?.name}{" "}
+                        </h5>
+                        <div className="text-sm space-y-1 mt-1">
+                          <p className="flex gap-1">
+                            <span className="font-normal">Band:</span>
+                            <span className="font-light">
+                              {request?.inventory?.brand}
+                            </span>
+                          </p>
+                          <p className="flex gap-1">
+                            <span className="font-normal">Category:</span>
+                            <span className="font-light">
+                              {request?.inventory?.category}
+                            </span>
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
+                    </TableCell>
 
-                  <TableCell>{request?.requestBy?.email}</TableCell>
+                    <TableCell>{request?.requestBy?.email}</TableCell>
 
-                  <TableCell>
-                    {GetTime(request.neededFrom)}
+                    <TableCell>
+                      {GetTime(request.neededFrom)}
 
-                    {/* <p className=" text-gray-500 text-center font-medium">-To-</p>
+                      {/* <p className=" text-gray-500 text-center font-medium">-To-</p>
                 {GetTime(request.neededTo)} */}
-                  </TableCell>
-                  <TableCell>{GetTime(request.neededTo)}</TableCell>
-                  <TableCell>
-                    {request?.decisionBy ? (
-                      <div className="flex flex-col">
-                        <span>{GetTime(request.decisionDate)}</span>
-                        <span>{request?.decisionBy?.name}</span>
-                      </div>
-                    ) : (
-                      "Decision Pending"
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+                    </TableCell>
+                    <TableCell>{GetTime(request.neededTo)}</TableCell>
+                    <TableCell>
+                      {request?.decisionBy ? (
+                        <div className="flex flex-col">
+                          <span>{GetTime(request.decisionDate)}</span>
+                          <span>{request?.decisionBy?.name}</span>
+                        </div>
+                      ) : (
+                        "Decision Pending"
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            )}
           </Table>
           <div>
             {items && items.length < 1 && (
               <p className="text-xl font-bold text-center mt-40">
                 There is no items
               </p>
-            )}
-            {loading && (
-              <div className="text-xl font-bold text-center mt-40 w-fit mx-auto flex gap-4">
-                <Icon
-                  icon="eos-icons:bubble-loading"
-                  className="text-blue-500"
-                  width="32"
-                  height="32"
-                />
-                <p>Loading...</p>
-              </div>
             )}
           </div>
         </div>
@@ -203,99 +207,93 @@ export default function CheckoutTable() {
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {items?.map((request, id) => (
-              <TableRow key={id}>
-                <TableCell className="font-medium">
-                  <div>
-                    <h5 className="text-wrap capitalize">
-                      {request?.inventory?.name}{" "}
-                    </h5>
-                    <div className="text-sm space-y-1 mt-1">
-                      <p className="flex gap-1">
-                        <span className="font-normal">Band:</span>
-                        <span className="font-light">
-                          {request?.inventory?.brand}
-                        </span>
-                      </p>
-                      <p className="flex gap-1">
-                        <span className="font-normal">Category:</span>
-                        <span className="font-light">
-                          {request?.inventory?.category}
-                        </span>
-                      </p>
+          {loading ? (
+            <CheckoutSkeleton />
+          ) : (
+            <TableBody>
+              {items?.map((request, id) => (
+                <TableRow key={id}>
+                  <TableCell className="font-medium">
+                    <div>
+                      <h5 className="text-wrap capitalize">
+                        {request?.inventory?.name}{" "}
+                      </h5>
+                      <div className="text-sm space-y-1 mt-1">
+                        <p className="flex gap-1">
+                          <span className="font-normal">Band:</span>
+                          <span className="font-light">
+                            {request?.inventory?.brand}
+                          </span>
+                        </p>
+                        <p className="flex gap-1">
+                          <span className="font-normal">Category:</span>
+                          <span className="font-light">
+                            {request?.inventory?.category}
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </TableCell>
+                  </TableCell>
 
-                <TableCell>{request?.requestBy?.email}</TableCell>
+                  <TableCell>{request?.requestBy?.email}</TableCell>
 
-                <TableCell>
-                  {GetTime(request.neededFrom)}
+                  <TableCell>
+                    {GetTime(request.neededFrom)}
 
-                  {/* <p className=" text-gray-500 text-center font-medium">-To-</p>
+                    {/* <p className=" text-gray-500 text-center font-medium">-To-</p>
                 {GetTime(request.neededTo)} */}
-                </TableCell>
-                <TableCell>{GetTime(request.neededTo)}</TableCell>
-                <TableCell>
-                  <HoverCard>
-                    <HoverCardTrigger className="cursor-pointer hover:underline">
-                      {request.message.slice(0, 20)}...
-                    </HoverCardTrigger>
-                    <HoverCardContent>
-                      <p className="text-sm">{request?.message}</p>
-                    </HoverCardContent>
-                  </HoverCard>
-                </TableCell>
-                <TableCell className={getCheckoutStateColor(request.status)}>
-                  <SelectInput
-                    className="w-34 capitalize"
-                    selectPlaceholder="change access"
-                    onSelect={(value) => handleStatusUpdate(request, value)}
-                    selectlist={["pending", "approved", "rejected"]}
-                    defaultValue={request?.status}
-                  />
-                </TableCell>
-                <TableCell>
-                  {request?.decisionBy ? (
-                    <div className="flex flex-col">
-                      <span>{GetTime(request.decisionDate)}</span>
-                      <span>{request?.decisionBy?.name}</span>
-                    </div>
-                  ) : (
-                    "Decision Pending"
-                  )}
-                </TableCell>
-
-                <TableCell>
-                  <div className="w-fit mx-auto">
-                    <DeleteModal
-                      id={request.id}
-                      collectionName="checkout-requests"
-                      refetch={refetch}
+                  </TableCell>
+                  <TableCell>{GetTime(request.neededTo)}</TableCell>
+                  <TableCell>
+                    <HoverCard>
+                      <HoverCardTrigger className="cursor-pointer hover:underline">
+                        {request.message.slice(0, 20)}...
+                      </HoverCardTrigger>
+                      <HoverCardContent>
+                        <p className="text-sm">{request?.message}</p>
+                      </HoverCardContent>
+                    </HoverCard>
+                  </TableCell>
+                  <TableCell className={getCheckoutStateColor(request.status)}>
+                    <SelectInput
+                      className="w-34 capitalize"
+                      selectPlaceholder="change access"
+                      onSelect={(value) => handleStatusUpdate(request, value)}
+                      selectlist={["pending", "approved", "rejected"]}
+                      defaultValue={request?.status}
                     />
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                  </TableCell>
+                  <TableCell>
+                    {request?.decisionBy ? (
+                      <div className="flex flex-col">
+                        <span>{GetTime(request.decisionDate)}</span>
+                        <span>{request?.decisionBy?.name}</span>
+                      </div>
+                    ) : (
+                      "Decision Pending"
+                    )}
+                  </TableCell>
+
+                  <TableCell>
+                    <div className="w-fit mx-auto">
+                      <DeleteModal
+                        id={request.id}
+                        collectionName="checkout-requests"
+                        refetch={refetch}
+                        imageUrl={request?.contactsPdf}
+                      />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          )}
         </Table>
         <div>
           {items && items.length < 1 && (
             <p className="text-xl font-bold text-center mt-40">
               There is no items
             </p>
-          )}
-          {loading && (
-            <div className="text-xl font-bold text-center mt-40 w-fit mx-auto flex gap-4">
-              <Icon
-                icon="eos-icons:bubble-loading"
-                className="text-blue-500"
-                width="32"
-                height="32"
-              />
-              <p>Loading...</p>
-            </div>
           )}
         </div>
       </div>
