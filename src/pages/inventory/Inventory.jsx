@@ -16,10 +16,10 @@ export default function Inventory() {
           <SummaryBox
             title="items in storage"
             items={`${total?.reduce(
-              (prev, curr) => prev + curr.stock,
+              (prev, curr) =>prev + Number(curr.stock),
               0
             )} items`}
-            amount={`$${total?.reduce((prev, curr) => prev + curr.price, 0)}`}
+            amount={`$${total?.reduce((prev, curr) => prev + Number(curr.price), 0)}`}
             icon="fa-solid:store-alt"
           />
         </div>
@@ -31,7 +31,7 @@ export default function Inventory() {
             title="items checked out"
             items={`${checkedOut.length} items`}
             amount={`$${checkedOut?.reduce(
-              (prev, curr) => prev + curr.price,
+              (prev, curr) => prev + Number(curr.price),
               0
             )}`}
             icon="mdi:clipboard-check-outline"
